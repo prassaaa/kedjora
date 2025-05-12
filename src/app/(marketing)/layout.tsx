@@ -7,24 +7,68 @@ import Header from "@/components/marketing/header";
 import Footer from "@/components/marketing/footer";
 import { Toaster } from "sonner";
 
+const CursorEffect = () => {
+  useEffect(() => {
+    const cursor = document.getElementById('cursor-fx');
+    if (cursor) {
+      const handleMouseMove = (e: MouseEvent) => {
+        cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+      };
+      
+      document.addEventListener('mousemove', handleMouseMove);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+      };
+    }
+  }, []);
+  
+  return (
+    <div id="cursor-fx" className="fixed w-5 h-5 rounded-full bg-blue-600 opacity-70 pointer-events-none z-50 hidden md:block" />
+  );
+};
+
 export default function MarketingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [content, setContent] = useState(children);
 
-  // Add a loading state effect
+  // Improved navigation loading
   useEffect(() => {
-    // Simulate a loading state to show the animation
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
+    let isMounted = true;
+    let loadingTimeout: NodeJS.Timeout | null = null;
 
-    return () => clearTimeout(timer);
-  }, [pathname]);
+    const minLoadingDelay = 200; 
+    
+    setContent(children); 
+
+    loadingTimeout = setTimeout(() => {
+      if (isMounted) {
+        setIsLoading(true);
+      }
+    }, minLoadingDelay);
+
+    const navigationTime = 100;
+    setTimeout(() => {
+      if (isMounted) {
+        if (loadingTimeout) {
+          clearTimeout(loadingTimeout);
+          loadingTimeout = null;
+        }
+        setIsLoading(false);
+      }
+    }, navigationTime);
+    
+    return () => {
+      isMounted = false;
+      if (loadingTimeout) {
+        clearTimeout(loadingTimeout);
+      }
+    };
+  }, [pathname, children]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -50,7 +94,7 @@ export default function MarketingLayout({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {children}
+              {content}
             </motion.div>
           )}
         </AnimatePresence>
@@ -58,8 +102,8 @@ export default function MarketingLayout({
       <Footer />
       <Toaster position="top-right" />
       
-      {/* Add animated cursor effect */}
-      <div id="cursor-fx" className="fixed w-5 h-5 rounded-full bg-blue-600 opacity-70 pointer-events-none z-50 hidden md:block"></div>
+      {/* Komponen cursor effect terpisah */}
+      <CursorEffect />
       
       {/* Scroll to top button */}
       <button
@@ -81,55 +125,6 @@ export default function MarketingLayout({
           <path d="m18 15-6-6-6 6" />
         </svg>
       </button>
-      
-      {/* Add cursor animation script */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          document.addEventListener('DOMContentLoaded', function() {
-            const cursor = document.getElementById('cursor-fx');
-            if (cursor) {
-              document.addEventListener('mousemove', function(e) {
-                cursor.style.transform = 'translate(' + (e.clientX - 10) + 'px, ' + (e.clientY - 10) + 'px)';
-              });
-            }
-          });
-        `
-      }} />
-      
-      {/* Add smooth scroll behavior */}
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-        
-        /* Animation classes */
-        .animate-fade-in {
-          opacity: 0;
-          animation: fadeIn 0.7s ease-in-out forwards;
-        }
-        
-        .animate-fade-up {
-          opacity: 0;
-          transform: translateY(20px);
-          animation: fadeUp 0.7s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes fadeUp {
-          from { 
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 }
