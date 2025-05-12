@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -28,6 +29,11 @@ const sidebarItems = [
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+
+  // Fungsi untuk logout
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/' });
+  };
 
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col">
@@ -62,6 +68,7 @@ export default function AdminSidebar() {
           <div className="mt-auto pb-5">
             <button 
               className="flex items-center w-full px-4 py-2 mt-5 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-white transition-colors"
+              onClick={handleLogout}
             >
               <LogOut className="w-5 h-5 mr-3" />
               Logout

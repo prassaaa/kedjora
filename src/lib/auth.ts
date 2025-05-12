@@ -1,3 +1,4 @@
+// src/lib/auth.ts
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -29,34 +30,44 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.log("Credentials tidak lengkap");
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email
+            }
+          });
+
+          if (!user) {
+            console.log("User tidak ditemukan:", credentials.email);
+            return null;
           }
-        });
 
-        if (!user) {
+          const isValidPassword = await compare(
+            credentials.password,
+            user.password
+          );
+
+          console.log("Password valid:", isValidPassword);
+
+          if (!isValidPassword) {
+            return null;
+          }
+
+          // Pastikan mengembalikan objek user dengan struktur yang diharapkan
+          return {
+            id: user.id,
+            name: user.name || "Admin",
+            email: user.email,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Error saat autentikasi:", error);
           return null;
         }
-
-        const isValidPassword = await compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isValidPassword) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        };
       }
     })
   ],
@@ -81,5 +92,6 @@ export const authOptions: NextAuthOptions = {
         }
       };
     }
-  }
+  },
+  debug: process.env.NODE_ENV === "development", // Tambahkan logging untuk debugging
 };
