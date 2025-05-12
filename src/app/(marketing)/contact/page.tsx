@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -45,15 +45,34 @@ const formSchema = z.object({
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [services, setServices] = useState<any[]>([]);
+  const [isLoadingServices, setIsLoadingServices] = useState(true);
   
-  // Dummy services untuk demonstrasi
-  // Dalam implementasi sebenarnya, ini akan diambil dari API/database
-  const services = [
-    { id: "web-dev", title: "Pembuatan Website" },
-    { id: "app-dev", title: "Pengembangan Aplikasi" },
-    { id: "academic", title: "Joki Tugas Kuliah" },
-    { id: "thesis", title: "Skripsi & Sempro" },
-  ];
+  // Fetch services for the dropdown
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setIsLoadingServices(true);
+        const response = await fetch('/api/services');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch services');
+        }
+        
+        const servicesData = await response.json();
+        // Filter only active services
+        const activeServices = servicesData.filter((service: any) => service.isActive);
+        setServices(activeServices);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+        toast.error('Gagal memuat data layanan');
+      } finally {
+        setIsLoadingServices(false);
+      }
+    };
+    
+    fetchServices();
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,21 +89,61 @@ export default function ContactPage() {
     try {
       setIsSubmitting(true);
       
-      // Simulasi submit form (ganti dengan API call sebenarnya)
-      console.log("Form values:", values);
+      // Kirim data ke API untuk membuat order
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          serviceId: values.serviceId,
+          message: values.message,
+        }),
+      });
       
-      // Simulasi delay untuk menunjukkan loading state
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
       
-      toast.success("Pesan berhasil dikirim! Kami akan segera menghubungi Anda.");
+      toast.success('Pesan berhasil dikirim! Kami akan segera menghubungi Anda.');
       form.reset();
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Gagal mengirim pesan. Silakan coba lagi nanti.");
+      console.error('Error submitting form:', error);
+      toast.error('Gagal mengirim pesan. Silakan coba lagi nanti.');
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // Fetch contact information from settings (if available)
+  const [contactInfo, setContactInfo] = useState({
+    address: "Jl. Contoh No. 123, Jakarta, Indonesia",
+    email: "info@kedjora.com",
+    phone: "+62 812 3456 7890",
+    mapUrl: ""
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await fetch('/api/settings?section=contact');
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setContactInfo(data[0]);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+    
+    fetchContactInfo();
+  }, []);
 
   return (
     <>
@@ -168,11 +227,17 @@ export default function ContactPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {services.map((service) => (
-                              <SelectItem key={service.id} value={service.id}>
-                                {service.title}
-                              </SelectItem>
-                            ))}
+                            {isLoadingServices ? (
+                              <SelectItem value="loading" disabled>Memuat layanan...</SelectItem>
+                            ) : services.length > 0 ? (
+                              services.map((service) => (
+                                <SelectItem key={service.id} value={service.id}>
+                                  {service.title}
+                                </SelectItem>
+                              ))
+                            ) : (
+                              <SelectItem value="none" disabled>Tidak ada layanan tersedia</SelectItem>
+                            )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -227,9 +292,8 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-4">
                     <h3 className="font-bold text-slate-900">Alamat</h3>
-                    <p className="text-slate-600 mt-1">
-                      Jl. Contoh No. 123<br />
-                      Kota Jakarta, Indonesia
+                    <p className="text-slate-600 mt-1 whitespace-pre-line">
+                      {contactInfo.address}
                     </p>
                   </div>
                 </div>
@@ -241,8 +305,8 @@ export default function ContactPage() {
                   <div className="ml-4">
                     <h3 className="font-bold text-slate-900">Email</h3>
                     <p className="text-slate-600 mt-1">
-                      <a href="mailto:info@kedjora.com" className="text-blue-600 hover:underline">
-                        info@kedjora.com
+                      <a href={`mailto:${contactInfo.email}`} className="text-blue-600 hover:underline">
+                        {contactInfo.email}
                       </a>
                     </p>
                   </div>
@@ -255,22 +319,36 @@ export default function ContactPage() {
                   <div className="ml-4">
                     <h3 className="font-bold text-slate-900">Telepon</h3>
                     <p className="text-slate-600 mt-1">
-                      <a href="tel:+62812345678" className="text-blue-600 hover:underline">
-                        +62 812-3456-7890
+                      <a href={`tel:${contactInfo.phone}`} className="text-blue-600 hover:underline">
+                        {contactInfo.phone}
                       </a>
                     </p>
                   </div>
                 </div>
               </div>
               
-              {/* Map placeholder */}
-              <div className="mt-6 rounded-lg overflow-hidden bg-slate-200 h-80 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-slate-600">Peta Lokasi</p>
-                  <p className="text-sm text-slate-500 mt-1">
-                    (Integrasikan Google Maps atau peta lainnya di sini)
-                  </p>
-                </div>
+              {/* Map */}
+              <div className="mt-6 rounded-lg overflow-hidden h-80">
+                {contactInfo.mapUrl ? (
+                  <iframe
+                    src={contactInfo.mapUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                ) : (
+                  <div className="bg-slate-200 h-full flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-slate-600">Peta Lokasi</p>
+                      <p className="text-sm text-slate-500 mt-1">
+                        (Integrasikan Google Maps di pengaturan)
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
               
               {/* Office hours */}

@@ -1,6 +1,7 @@
 import Hero from "@/components/marketing/hero";
 import ServicesShowcase from "@/components/marketing/services-showcase";
 import FeaturesSection from "@/components/marketing/features-section";
+import TestimonialsSection from "@/components/marketing/testimonials-section";
 import CTASection from "@/components/marketing/cta-section";
 import Link from "next/link";
 import Image from "next/image";
@@ -110,7 +111,7 @@ export default async function HomePage() {
           )}
         </div>
       </section>
-      
+      <TestimonialsSection />
       <CTASection />
     </>
   );
