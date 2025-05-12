@@ -1,10 +1,11 @@
 "use client";
-   
+
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Smartphone, GraduationCap, FileText, CheckCircle2 } from "lucide-react";
+import { Code, Smartphone, GraduationCap, FileText, CheckCircle2, ArrowRight } from "lucide-react";
 
 // Definisikan tipe untuk Service
 type Service = {
@@ -29,8 +30,20 @@ interface ServicesShowcaseProps {
 }
 
 export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
-  // Hapus useState hoveredId karena tidak digunakan
-  // const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+
+  // Mendapatkan kategori unik dari layanan
+  const categories = Array.from(
+    new Set(services.map(service => {
+      const slug = service.slug;
+      if (slug.includes("web")) return "web";
+      if (slug.includes("app")) return "app";
+      if (slug.includes("academic")) return "academic";
+      if (slug.includes("thesis")) return "thesis";
+      return "other";
+    }))
+  );
 
   // Mapping icon berdasarkan slug
   const getIconBySlug = (slug: string) => {
@@ -45,75 +58,214 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
     const slugKey = Object.keys(iconMap).find(key => slug.includes(key));
     return slugKey ? iconMap[slugKey] : Code; // Default to Code if no match
   };
+
+  // Filter services berdasarkan tab yang aktif
+  const filteredServices = activeTab
+    ? services.filter(service => {
+        if (activeTab === "web") return service.slug.includes("web");
+        if (activeTab === "app") return service.slug.includes("app");
+        if (activeTab === "academic") return service.slug.includes("academic");
+        if (activeTab === "thesis") return service.slug.includes("thesis");
+        return true;
+      })
+    : services;
+
+  // Mapping nama kategori untuk tampilan
+  const getCategoryName = (category: string) => {
+    switch (category) {
+      case "web": return "Website";
+      case "app": return "Aplikasi";
+      case "academic": return "Akademik";
+      case "thesis": return "Skripsi";
+      default: return "Lainnya";
+    }
+  };
+
+  // Animasi untuk kartu
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({ 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }),
+    hover: { 
+      y: -15, 
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
+    }
+  };
   
   return (
-    <div className="py-16 bg-slate-50">
+    <div className="py-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold text-slate-900">Layanan Kami</h2>
-          <p className="mt-4 text-lg text-slate-600">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">Layanan Kami</h2>
+          <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg text-slate-600">
             Solusi lengkap untuk kebutuhan digital dan akademik Anda dengan standar kualitas tertinggi.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service: Service) => {
-            // Parse features dari JSON string menjadi array
-            const features = JSON.parse(service.features) as string[];
-            const ServiceIcon = getIconBySlug(service.slug);
-            
-            return (
-              <motion.div
-                key={service.id}
-                // Hapus onHoverStart dan onHoverEnd karena tidak digunakan
-                // onHoverStart={() => setHoveredId(service.id)}
-                // onHoverEnd={() => setHoveredId(null)}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
+        {/* Filter tabs */}
+        {categories.length > 1 && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-2 mb-12"
+          >
+            <button
+              onClick={() => setActiveTab(null)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                activeTab === null
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+            >
+              Semua
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveTab(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  activeTab === category
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                }`}
               >
-                <Card className="h-full flex flex-col overflow-hidden border-slate-200 transition-all duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
-                      <ServiceIcon className="h-6 w-6 text-blue-600" />
+                {getCategoryName(category)}
+              </button>
+            ))}
+          </motion.div>
+        )}
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab || "all"}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {filteredServices.map((service: Service, index) => {
+              // Parse features dari JSON string menjadi array
+              const features = JSON.parse(service.features) as string[];
+              const ServiceIcon = getIconBySlug(service.slug);
+              
+              return (
+                <motion.div
+                  key={service.id}
+                  custom={index}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover="hover"
+                  onMouseEnter={() => setHoveredId(service.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className="relative"
+                >
+                  {service.isPopular && (
+                    <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg z-10 shadow-md">
+                      POPULER
                     </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription className="text-slate-600">{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <ul className="space-y-2">
-                      {features.slice(0, 5).map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-slate-600">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {service.price && (
-                      <div className="mt-4 text-sm font-medium text-blue-600">
-                        {service.price}
+                  )}
+                  <Card className="h-full flex flex-col overflow-hidden border border-slate-200 relative z-0 bg-white backdrop-blur-sm">
+                    <CardHeader className="relative pb-4">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${hoveredId === service.id ? 'bg-blue-600' : 'bg-blue-100'}`}>
+                        <ServiceIcon className={`h-8 w-8 transition-all duration-300 ${hoveredId === service.id ? 'text-white' : 'text-blue-600'}`} />
                       </div>
-                    )}
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" className="w-full" asChild>
-                      <Link href={`/services/${service.slug}`}>
-                        Selengkapnya
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
+                      <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-grow pt-0">
+                      <ul className="space-y-4">
+                        {/* Hanya menampilkan 2 fitur */}
+                        {features.slice(0, 2).map((feature, index) => (
+                          <motion.li 
+                            key={index} 
+                            className="flex items-start"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 + (index * 0.1) }}
+                          >
+                            <div className={`p-1.5 rounded-full mr-3 transition-colors duration-300 ${hoveredId === service.id ? 'bg-blue-100' : 'bg-slate-100'}`}>
+                              <CheckCircle2 className={`h-5 w-5 ${hoveredId === service.id ? 'text-blue-600' : 'text-green-500'}`} />
+                            </div>
+                            <span className="text-sm font-medium text-slate-700">{feature}</span>
+                          </motion.li>
+                        ))}
+                        {features.length > 2 && (
+                          <li className="text-sm font-medium text-blue-600 ml-9">
+                            +{features.length - 2} fitur lainnya
+                          </li>
+                        )}
+                      </ul>
+                      {service.price && (
+                        <div className="mt-6 px-4 py-3 bg-slate-50 rounded-lg">
+                          <span className="text-sm text-slate-500">Mulai dari</span>
+                          <div className="text-xl font-bold text-blue-600">
+                            {service.price}
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                    <CardFooter className="p-4 bg-slate-50 mt-4">
+                      <Button 
+                        variant="outline" 
+                        className={`w-full border transition-all duration-300 group ${
+                          hoveredId === service.id 
+                            ? 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
+                            : 'border-slate-300'
+                        }`}
+                        asChild
+                      >
+                        <Link href={`/services/${service.slug}`} className="flex items-center justify-center">
+                          <span>Selengkapnya</span>
+                          <ArrowRight className={`ml-2 h-4 w-4 transition-all duration-300 ${
+                            hoveredId === service.id ? 'group-hover:translate-x-1' : ''
+                          }`} />
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
         
-        <div className="text-center mt-12">
-          <Button size="lg" asChild>
-            <Link href="/services">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="text-center mt-16"
+        >
+          <Button 
+            size="lg" 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            asChild
+          >
+            <Link href="/services" className="flex items-center">
               Lihat Semua Layanan
+              <ArrowRight className="ml-2 h-5 w-5 animate-pulse" />
             </Link>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

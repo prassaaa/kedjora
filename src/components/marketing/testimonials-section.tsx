@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Import komponen Image
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star, Quote } from "lucide-react";
 
 type Testimonial = {
   id: string;
@@ -21,6 +20,7 @@ type Testimonial = {
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -43,13 +43,17 @@ export default function TestimonialsSection() {
     fetchTestimonials();
   }, []);
   
+  // Fallback data jika tidak ada testimonial atau masih loading
   if (isLoading) {
     return (
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900">Apa Kata Klien</h2>
-            <p className="mt-4 text-lg text-slate-600">Memuat testimonial...</p>
+            <div className="opacity-0 animate-fade-in">
+              <h2 className="text-4xl font-bold text-slate-900 mb-3">Apa Kata Klien</h2>
+              <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+              <p className="text-lg text-slate-600">Memuat testimonial...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -94,68 +98,108 @@ export default function TestimonialsSection() {
     setTestimonials(fallbackTestimonials);
   }
 
+  const getRandomColor = (id: string) => {
+    const colors = ['blue', 'indigo', 'purple', 'rose', 'amber', 'emerald', 'teal'];
+    const hash = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return colors[hash % colors.length];
+  };
+
+  const getColorClasses = (color: string, isHovered: boolean) => {
+    const colorMap: Record<string, { light: string, medium: string, dark: string }> = {
+      blue: { light: 'bg-blue-50', medium: 'bg-blue-100', dark: 'bg-blue-600' },
+      indigo: { light: 'bg-indigo-50', medium: 'bg-indigo-100', dark: 'bg-indigo-600' },
+      purple: { light: 'bg-purple-50', medium: 'bg-purple-100', dark: 'bg-purple-600' },
+      rose: { light: 'bg-rose-50', medium: 'bg-rose-100', dark: 'bg-rose-600' },
+      amber: { light: 'bg-amber-50', medium: 'bg-amber-100', dark: 'bg-amber-600' },
+      emerald: { light: 'bg-emerald-50', medium: 'bg-emerald-100', dark: 'bg-emerald-600' },
+      teal: { light: 'bg-teal-50', medium: 'bg-teal-100', dark: 'bg-teal-600' }
+    };
+    
+    return {
+      bgColor: isHovered ? colorMap[color].medium : colorMap[color].light,
+      textColor: isHovered ? `text-${color}-600` : `text-${color}-500`,
+      accentColor: colorMap[color].dark
+    };
+  };
+
   return (
-    <div className="py-16 bg-slate-50">
+    <div className="py-24 bg-gradient-to-b from-white to-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold text-slate-900">Apa Kata Klien</h2>
-          <p className="mt-4 text-lg text-slate-600">
+        <div className="text-center max-w-3xl mx-auto mb-16 opacity-0 animate-fade-in">
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">Apa Kata Klien</h2>
+          <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg text-slate-600">
             Testimonial dari klien yang telah menggunakan layanan kami
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="bg-white p-6 rounded-lg shadow-md border border-slate-200 h-full flex flex-col">
-                <div className="flex items-center mb-4">
-                  {testimonial.imageUrl ? (
-                    // Mengganti tag img dengan komponen Image
-                    <Image
-                      src={testimonial.imageUrl}
-                      alt={testimonial.name}
-                      width={48}
-                      height={48}
-                      className="rounded-full object-cover mr-4"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                      <span className="text-blue-600 font-medium">
-                        {testimonial.name.charAt(0)}
-                      </span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, i) => {
+            const color = getRandomColor(testimonial.id);
+            const colors = getColorClasses(color, hoveredId === testimonial.id);
+            
+            return (
+              <div
+                key={testimonial.id}
+                className={`rounded-2xl p-8 shadow-lg transition-all duration-500 opacity-0 animate-fade-up ${colors.bgColor} hover:shadow-xl hover:-translate-y-2`}
+                style={{ animationDelay: `${i * 150}ms` }}
+                onMouseEnter={() => setHoveredId(testimonial.id)}
+                onMouseLeave={() => setHoveredId(null)}
+              >
+                <div className="relative mb-6">
+                  <Quote className={`absolute -top-4 -left-4 h-8 w-8 opacity-20 ${colors.textColor}`} />
+                </div>
+                <p className="text-slate-700 italic mb-6 relative z-10">&ldquo;{testimonial.content}&rdquo;</p>
+                
+                <div className="flex justify-between items-end">
+                  <div className="flex items-center">
+                    {testimonial.imageUrl ? (
+                      <div className="mr-4 border-2 border-white rounded-full shadow-md overflow-hidden">
+                        <Image
+                          src={testimonial.imageUrl}
+                          alt={testimonial.name}
+                          width={48}
+                          height={48}
+                          className="rounded-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-md ${colors.accentColor} text-white`}>
+                        <span className="text-lg font-medium">
+                          {testimonial.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
+                      <p className="text-sm text-slate-600">
+                        {testimonial.position}
+                        {testimonial.position && testimonial.company && ', '}
+                        {testimonial.company}
+                      </p>
                     </div>
-                  )}
-                  <div>
-                    <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
-                    <p className="text-sm text-slate-600">
-                      {testimonial.position}
-                      {testimonial.position && testimonial.company && ', '}
-                      {testimonial.company}
-                    </p>
+                  </div>
+                  
+                  <div className="flex">
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                    ))}
                   </div>
                 </div>
-                <div className="flex mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <span key={i} className="text-yellow-400">★</span>
-                  ))}
-                </div>
-                {/* Perbaikan: Mengganti " " dengan &ldquo; &rdquo; */}
-                <p className="text-slate-700 italic flex-grow">&ldquo;{testimonial.content}&rdquo;</p>
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
         
-        <div className="text-center mt-8">
-          <Button variant="outline" asChild>
+        <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
+          <Button 
+            variant="outline" 
+            className="border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white group transition-all duration-300 px-6 py-3 text-base shadow hover:shadow-lg"
+            asChild
+          >
             <Link href="/testimonials" className="flex items-center">
-              Lihat Semua Testimonial
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <span>Lihat Semua Testimonial</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>
