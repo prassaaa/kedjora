@@ -20,6 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 
+// Definisikan skema validasi dengan Zod
 const formSchema = z.object({
   title: z.string().min(3, {
     message: 'Judul harus minimal 3 karakter',
@@ -34,16 +35,19 @@ const formSchema = z.object({
   }),
   price: z.string().optional(),
   imageUrl: z.string().optional(),
-  isPopular: z.boolean().default(false),
-  isActive: z.boolean().default(true),
+  isPopular: z.boolean(), // Ubah dari default(false) ke boolean() saja
+  isActive: z.boolean(), // Ubah dari default(true) ke boolean() saja
 });
+
+// Definisikan tipe dari skema validasi kita
+type FormValues = z.infer<typeof formSchema>;
 
 export default function NewServicePage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [features, setFeatures] = useState<string[]>(['']);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -85,7 +89,7 @@ export default function NewServicePage() {
     form.setValue('slug', slug);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     try {
       setIsSubmitting(true);
       

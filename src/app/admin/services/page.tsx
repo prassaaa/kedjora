@@ -3,6 +3,21 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import prisma from "@/lib/db";
 
+// Definisikan interface untuk Service
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string;
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export default async function ServicesPage() {
   // Ambil semua layanan dari database
   const services = await prisma.service.findMany({
@@ -42,7 +57,7 @@ export default async function ServicesPage() {
                 </td>
               </tr>
             ) : (
-              services.map((service) => (
+              services.map((service: Service) => (
                 <tr key={service.id}>
                   <td className="px-4 py-3">{service.title}</td>
                   <td className="px-4 py-3">{service.slug}</td>

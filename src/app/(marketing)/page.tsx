@@ -2,7 +2,26 @@ import Hero from "@/components/marketing/hero";
 import ServicesShowcase from "@/components/marketing/services-showcase";
 import FeaturesSection from "@/components/marketing/features-section";
 import CTASection from "@/components/marketing/cta-section";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
+
+// Definisikan interface untuk item Portfolio sesuai dengan model Prisma Anda
+interface Portfolio {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  clientName: string | null;
+  serviceType: string;
+  imageUrls: string; // JSON string yang akan di-parse
+  featured: boolean;
+  technologies: string; // JSON string yang akan di-parse
+  demoUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default async function HomePage() {
   // Fetch services from database
@@ -53,20 +72,28 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredPortfolio.map((item) => {
+              {featuredPortfolio.map((item: Portfolio) => {
                 // Parse imageUrls dari JSON string menjadi array
                 const imageUrls = JSON.parse(item.imageUrls) as string[];
-                // Parse technologies dari JSON string menjadi array
-                const technologies = JSON.parse(item.technologies) as string[];
+                // Parse technologies dari JSON string menjadi array jika dibutuhkan
+                // const technologies = JSON.parse(item.technologies) as string[];
                 
                 return (
                   <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md border border-slate-200">
                     <div className="aspect-w-16 aspect-h-9 bg-slate-200">
-                      <img 
-                        src={imageUrls[0] || 'https://placehold.co/600x400/4f46e5/ffffff?text=No+Image'} 
-                        alt={item.title} 
-                        className="w-full h-48 object-cover"
-                      />
+                      {imageUrls[0] ? (
+                        <Image 
+                          src={imageUrls[0]} 
+                          alt={item.title} 
+                          width={600}
+                          height={400}
+                          className="w-full h-48 object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-48 flex items-center justify-center bg-slate-300 text-slate-600">
+                          No Image
+                        </div>
+                      )}
                     </div>
                     <div className="p-6">
                       <div className="text-sm font-medium text-blue-600 mb-1">{item.serviceType}</div>

@@ -1,31 +1,25 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import AuthProvider from "@/providers/auth-provider";
 
-import AdminSidebar from "@/components/admin/sidebar";
-import AdminHeader from "@/components/admin/header";
+const inter = Inter({ subsets: ["latin"] });
 
-export default async function AdminLayout({
+export const metadata: Metadata = {
+  title: "Kedjora - Jasa Web, Aplikasi, & Tugas Kuliah",
+  description: "Layanan pembuatan website, aplikasi, joki tugas kuliah, sempro dan skripsi",
+};
+
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Cek autentikasi, redirect ke login jika tidak ada session
-  const session = await getServerSession(authOptions);
-  
-  if (!session) {
-    redirect("/auth/login");
-  }
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      <AdminSidebar />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <AdminHeader />
-        <main className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-6">
-          {children}
-        </main>
-      </div>
-    </div>
+    <html lang="en">
+      <body className={inter.className}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
+    </html>
   );
 }

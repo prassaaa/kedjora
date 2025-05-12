@@ -1,12 +1,12 @@
 "use client";
-
-import { useState } from "react";
+   
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code, Smartphone, GraduationCap, FileText, CheckCircle2 } from "lucide-react";
 
+// Definisikan tipe untuk Service
 type Service = {
   id: string;
   title: string;
@@ -19,12 +19,22 @@ type Service = {
   isActive: boolean;
 };
 
-export default function ServicesShowcase({ services }: { services: Service[] }) {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+// Definisikan tipe untuk IconComponent
+type IconComponent = typeof Code | typeof Smartphone | typeof GraduationCap | typeof FileText;
+type IconMap = Record<string, IconComponent>;
+
+// Definisikan tipe untuk props komponen
+interface ServicesShowcaseProps {
+  services: Service[];
+}
+
+export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
+  // Hapus useState hoveredId karena tidak digunakan
+  // const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Mapping icon berdasarkan slug
   const getIconBySlug = (slug: string) => {
-    const iconMap: Record<string, any> = {
+    const iconMap: IconMap = {
       "web-development": Code,
       "app-development": Smartphone,
       "academic-assistance": GraduationCap,
@@ -47,7 +57,7 @@ export default function ServicesShowcase({ services }: { services: Service[] }) 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => {
+          {services.map((service: Service) => {
             // Parse features dari JSON string menjadi array
             const features = JSON.parse(service.features) as string[];
             const ServiceIcon = getIconBySlug(service.slug);
@@ -55,8 +65,9 @@ export default function ServicesShowcase({ services }: { services: Service[] }) 
             return (
               <motion.div
                 key={service.id}
-                onHoverStart={() => setHoveredId(service.id)}
-                onHoverEnd={() => setHoveredId(null)}
+                // Hapus onHoverStart dan onHoverEnd karena tidak digunakan
+                // onHoverStart={() => setHoveredId(service.id)}
+                // onHoverEnd={() => setHoveredId(null)}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2 }}
               >

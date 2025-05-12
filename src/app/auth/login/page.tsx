@@ -56,7 +56,9 @@ export default function LoginPage() {
       toast.success("Login berhasil!");
       router.push("/admin");
       router.refresh();
-    } catch (error) {
+    } catch (err) {
+      // Menggunakan error di sini atau menampilkan error yang lebih spesifik
+      console.error("Login error:", err);
       toast.error("Terjadi kesalahan");
     } finally {
       setIsPending(false);

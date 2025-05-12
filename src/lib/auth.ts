@@ -7,6 +7,8 @@ import { compare } from "bcrypt";
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
+  // Gunakan PrismaAdapter tetapi tangani masalah tipe secara eksplisit
+  // @ts-expect-error - PrismaAdapter memiliki tipe yang tidak kompatibel dengan NextAuthOptions
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: {

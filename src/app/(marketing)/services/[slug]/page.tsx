@@ -1,9 +1,26 @@
 import Link from "next/link";
-import Image from "next/image";
+// Hapus import Image jika tidak digunakan
+// import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import prisma from "@/lib/db";
+import Image from "next/image"; // Simpan import Image karena kita akan menggunakannya untuk mengganti tag img
+
+// Definisikan interface untuk Service
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string; // JSON string yang akan di-parse
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const service = await prisma.service.findUnique({
@@ -105,9 +122,12 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
             <div>
               {service.imageUrl ? (
                 <div className="rounded-lg overflow-hidden shadow-lg">
-                  <img 
+                  {/* Menggunakan komponen Image dari Next.js untuk optimasi */}
+                  <Image 
                     src={service.imageUrl}
                     alt={service.title}
+                    width={800}
+                    height={600}
                     className="w-full h-auto"
                   />
                 </div>
@@ -192,9 +212,10 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
             <h2 className="text-2xl font-bold text-slate-900 mb-8">Layanan Lainnya</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedServices.map((relatedService) => {
+              {relatedServices.map((relatedService: Service) => {
                 // Parse features dari JSON string menjadi array
-                const relatedFeatures = JSON.parse(relatedService.features) as string[];
+                // Kita bisa hapus variabel ini karena tidak digunakan di template
+                // const relatedFeatures = JSON.parse(relatedService.features) as string[];
                 
                 return (
                   <div key={relatedService.id} className="bg-white rounded-lg shadow-md overflow-hidden">

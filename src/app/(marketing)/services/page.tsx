@@ -4,6 +4,25 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Code, Smartphone, GraduationCap, FileText } from "lucide-react";
 import prisma from "@/lib/db";
 
+// Definisikan interface untuk Service
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string; // JSON string yang akan di-parse
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Definisikan tipe untuk iconMap yang lebih spesifik
+type IconComponent = typeof Code | typeof Smartphone | typeof GraduationCap | typeof FileText;
+type IconMap = Record<string, IconComponent>;
+
 export const metadata = {
   title: "Layanan - Kedjora",
   description: "Berbagai layanan yang kami tawarkan: pembuatan website, aplikasi, joki tugas, dan penulisan skripsi.",
@@ -27,7 +46,7 @@ export default async function ServicesPage() {
 
   // Mapping icon berdasarkan slug
   const getIconBySlug = (slug: string) => {
-    const iconMap: Record<string, any> = {
+    const iconMap: IconMap = {
       "web-development": Code,
       "app-development": Smartphone,
       "academic-assistance": GraduationCap,
@@ -60,7 +79,7 @@ export default async function ServicesPage() {
                 Belum ada layanan yang tersedia. Silakan kunjungi kembali nanti.
               </div>
             ) : (
-              services.map((service) => {
+              services.map((service: Service) => {
                 // Parse features dari JSON string menjadi array
                 const features = JSON.parse(service.features) as string[];
                 const ServiceIcon = getIconBySlug(service.slug);
