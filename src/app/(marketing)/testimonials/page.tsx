@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image"; // Import komponen Image dari next/image
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
 
@@ -50,10 +51,13 @@ export default async function TestimonialsPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex">
                       {testimonial.imageUrl ? (
-                        <img 
+                        // Mengganti tag img dengan komponen Image
+                        <Image 
                           src={testimonial.imageUrl} 
                           alt={testimonial.name} 
-                          className="w-12 h-12 rounded-full object-cover mr-4"
+                          width={48}
+                          height={48}
+                          className="rounded-full object-cover mr-4"
                         />
                       ) : (
                         <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -79,7 +83,8 @@ export default async function TestimonialsPage() {
                       ))}
                     </div>
                   </div>
-                  <blockquote className="text-slate-700 italic">"{testimonial.content}"</blockquote>
+                  {/* Di-escape tanda kutip dengan &ldquo; dan &rdquo; */}
+                  <blockquote className="text-slate-700 italic">&ldquo;{testimonial.content}&rdquo;</blockquote>
                 </div>
               ))}
             </div>

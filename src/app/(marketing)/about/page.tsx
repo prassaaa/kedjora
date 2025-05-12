@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image"; // Tambahkan import Image
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import prisma from "@/lib/db";
@@ -108,9 +109,12 @@ export default async function AboutPage() {
             </div>
             <div>
               <div className="rounded-lg overflow-hidden shadow-xl">
-                <img 
+                {/* Perubahan 1: Ganti tag img dengan komponen Image */}
+                <Image 
                   src={aboutContent?.imageUrl || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"} 
                   alt="Tim Kedjora" 
+                  width={800}
+                  height={600}
                   className="w-full h-auto"
                 />
               </div>
@@ -186,9 +190,12 @@ export default async function AboutPage() {
               {teamMembers.map((member, index) => (
                 <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md border border-slate-200 text-center">
                   <div className="aspect-w-1 aspect-h-1 bg-slate-200">
-                    <img 
+                    {/* Perubahan 2: Ganti tag img dengan komponen Image */}
+                    <Image 
                       src={member.imageUrl} 
                       alt={member.name} 
+                      width={400}
+                      height={400}
                       className="w-full h-64 object-cover"
                     />
                   </div>

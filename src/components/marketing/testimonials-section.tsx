@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Import komponen Image
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -114,10 +115,13 @@ export default function TestimonialsSection() {
               <div className="bg-white p-6 rounded-lg shadow-md border border-slate-200 h-full flex flex-col">
                 <div className="flex items-center mb-4">
                   {testimonial.imageUrl ? (
-                    <img
+                    // Mengganti tag img dengan komponen Image
+                    <Image
                       src={testimonial.imageUrl}
                       alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover mr-4"
+                      width={48}
+                      height={48}
+                      className="rounded-full object-cover mr-4"
                     />
                   ) : (
                     <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -140,7 +144,8 @@ export default function TestimonialsSection() {
                     <span key={i} className="text-yellow-400">★</span>
                   ))}
                 </div>
-                <p className="text-slate-700 italic flex-grow">"{testimonial.content}"</p>
+                {/* Perbaikan: Mengganti " " dengan &ldquo; &rdquo; */}
+                <p className="text-slate-700 italic flex-grow">&ldquo;{testimonial.content}&rdquo;</p>
               </div>
             </motion.div>
           ))}

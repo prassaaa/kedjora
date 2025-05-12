@@ -25,6 +25,27 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
+// Definisikan interface untuk Service
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string;
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+}
+
+// Interface untuk contact info
+interface ContactInfo {
+  address: string;
+  email: string;
+  phone: string;
+  mapUrl: string;
+}
+
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "Nama harus minimal 3 karakter",
@@ -45,7 +66,7 @@ const formSchema = z.object({
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [isLoadingServices, setIsLoadingServices] = useState(true);
   
   // Fetch services for the dropdown
@@ -61,7 +82,7 @@ export default function ContactPage() {
         
         const servicesData = await response.json();
         // Filter only active services
-        const activeServices = servicesData.filter((service: any) => service.isActive);
+        const activeServices = servicesData.filter((service: Service) => service.isActive);
         setServices(activeServices);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -119,7 +140,7 @@ export default function ContactPage() {
   };
 
   // Fetch contact information from settings (if available)
-  const [contactInfo, setContactInfo] = useState({
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({
     address: "Jl. Contoh No. 123, Jakarta, Indonesia",
     email: "info@kedjora.com",
     phone: "+62 812 3456 7890",

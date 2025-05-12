@@ -24,12 +24,29 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 
+// Definisikan interface untuk Order
+interface Order {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  serviceId: string;
+  service: {
+    id: string;
+    title: string;
+  };
+  message: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 const formSchema = z.object({
   status: z.enum(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED']),
 });
 
 type OrderStatusFormProps = {
-  order: any;
+  order: Order; // Gunakan interface Order yang sudah didefinisikan
 };
 
 export default function OrderStatusForm({ order }: OrderStatusFormProps) {

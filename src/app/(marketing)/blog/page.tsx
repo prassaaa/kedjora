@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image"; // Tambahkan import Image
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
 import prisma from "@/lib/db";
@@ -58,9 +59,12 @@ export default async function BlogPage() {
                 <article key={post.id} className="bg-white rounded-lg overflow-hidden shadow-md border border-slate-200">
                   {post.imageUrl && (
                     <div className="aspect-w-16 aspect-h-9 bg-slate-200">
-                      <img 
+                      {/* Perubahan: Ganti tag img dengan komponen Image */}
+                      <Image 
                         src={post.imageUrl} 
                         alt={post.title} 
+                        width={600}
+                        height={337} // 16:9 aspect ratio dari 600px
                         className="w-full h-48 object-cover"
                       />
                     </div>
