@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { Loader2, PlusCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,9 +34,27 @@ const formSchema = z.object({
   }),
   price: z.string().optional(),
   imageUrl: z.string().optional(),
-  isPopular: z.boolean().default(false),
-  isActive: z.boolean().default(true),
+  isPopular: z.boolean(), // required boolean
+  isActive: z.boolean(),  // required boolean
 });
+
+// Definisikan tipe untuk form
+type FormValues = z.infer<typeof formSchema>;
+
+// Interface untuk Service yang akan digunakan di dalam komponen
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string; // JSON string yang akan di-parse 
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function EditServicePage() {
   const params = useParams();
@@ -47,7 +65,7 @@ export default function EditServicePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [features, setFeatures] = useState<string[]>(['']);
   
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -70,7 +88,7 @@ export default function EditServicePage() {
           throw new Error('Failed to fetch service');
         }
         
-        const service = await response.json();
+        const service: Service = await response.json();
         
         // Set form values
         form.reset({
@@ -114,7 +132,8 @@ export default function EditServicePage() {
     }
   };
   
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  // Menggunakan SubmitHandler untuk onSubmit
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
     try {
       setIsSubmitting(true);
       

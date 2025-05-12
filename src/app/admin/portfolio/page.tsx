@@ -3,6 +3,22 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import prisma from "@/lib/db";
 
+// Definisikan interface untuk Portfolio
+interface Portfolio {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  clientName: string | null;
+  serviceType: string;
+  imageUrls: string; // JSON string yang akan di-parse
+  featured: boolean;
+  technologies: string; // JSON string yang akan di-parse
+  demoUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export default async function PortfolioPage() {
   // Ambil semua portfolio dari database
   const portfolios = await prisma.portfolio.findMany({
@@ -42,7 +58,7 @@ export default async function PortfolioPage() {
                 </td>
               </tr>
             ) : (
-              portfolios.map((portfolio) => (
+              portfolios.map((portfolio: Portfolio) => (
                 <tr key={portfolio.id}>
                   <td className="px-4 py-3">{portfolio.title}</td>
                   <td className="px-4 py-3">{portfolio.serviceType}</td>

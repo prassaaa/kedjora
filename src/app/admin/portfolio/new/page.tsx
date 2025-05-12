@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { Loader2, PlusCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 
+// Skema validasi dengan Zod
 const formSchema = z.object({
   title: z.string().min(3, {
     message: "Judul harus minimal 3 karakter",
@@ -32,15 +33,18 @@ const formSchema = z.object({
   description: z.string().min(10, {
     message: "Deskripsi harus minimal 10 karakter",
   }),
-  clientName: z.string().optional(),
+  clientName: z.string(),
   serviceType: z.string().min(1, {
     message: "Tipe layanan harus diisi",
   }),
   demoUrl: z.string().url({
     message: "URL demo tidak valid",
-  }).optional().or(z.literal('')),
-  featured: z.boolean().default(false),
+  }),
+  featured: z.boolean(),
 });
+
+// Definisikan tipe dari skema validasi
+type FormSchemaType = z.infer<typeof formSchema>;
 
 export default function NewPortfolioPage() {
   const router = useRouter();
@@ -48,7 +52,8 @@ export default function NewPortfolioPage() {
   const [imageUrls, setImageUrls] = useState<string[]>(['']);
   const [technologies, setTechnologies] = useState<string[]>(['']);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  // Gunakan tipe FormSchemaType untuk useForm
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -105,7 +110,8 @@ export default function NewPortfolioPage() {
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  // Gunakan SubmitHandler<FormSchemaType> untuk onSubmit
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
     try {
       setIsSubmitting(true);
       

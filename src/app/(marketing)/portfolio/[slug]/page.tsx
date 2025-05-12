@@ -1,8 +1,25 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Code, Users, Calendar } from "lucide-react";
+import { ExternalLink, Code, Users } from "lucide-react";
 import prisma from "@/lib/db";
+
+// Definisikan interface Portfolio untuk memberikan tipe pada relatedPortfolio
+interface Portfolio {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  clientName: string | null;
+  serviceType: string;
+  imageUrls: string; // JSON string yang akan di-parse
+  featured: boolean;
+  technologies: string; // JSON string yang akan di-parse
+  demoUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const portfolio = await prisma.portfolio.findUnique({
@@ -87,9 +104,12 @@ export default async function PortfolioDetailPage({ params }: { params: { slug: 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {imageUrls.map((url, index) => (
                 <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                  <img 
+                  {/* Ganti tag img dengan komponen Image dari Next.js */}
+                  <Image 
                     src={url} 
                     alt={`${portfolio.title} - Image ${index + 1}`} 
+                    width={800}
+                    height={600}
                     className="w-full h-auto"
                   />
                 </div>
@@ -188,16 +208,19 @@ export default async function PortfolioDetailPage({ params }: { params: { slug: 
             <h2 className="text-2xl font-bold text-slate-900 mb-8">Proyek Serupa</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedPortfolios.map((relatedPortfolio) => {
+              {relatedPortfolios.map((relatedPortfolio: Portfolio) => { // Tambahkan tipe Portfolio
                 // Parse image URLs
                 const relImageUrls = JSON.parse(relatedPortfolio.imageUrls) as string[];
                 
                 return (
                   <div key={relatedPortfolio.id} className="bg-white rounded-lg overflow-hidden shadow-md">
                     <div className="aspect-w-16 aspect-h-9 bg-slate-200">
-                      <img 
+                      {/* Ganti tag img dengan komponen Image dari Next.js */}
+                      <Image 
                         src={relImageUrls[0] || 'https://placehold.co/600x400/3b82f6/ffffff?text=No+Image'} 
                         alt={relatedPortfolio.title} 
+                        width={600}
+                        height={400}
                         className="w-full h-48 object-cover"
                       />
                     </div>

@@ -1,6 +1,23 @@
 import Link from "next/link";
+import Image from "next/image"; // Tambahkan import Image
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
+
+// Definisikan interface Portfolio untuk memberikan tipe pada parameter
+interface Portfolio {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  clientName: string | null;
+  serviceType: string;
+  imageUrls: string; // JSON string yang akan di-parse
+  featured: boolean;
+  technologies: string; // JSON string yang akan di-parse
+  demoUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export const metadata = {
   title: "Portfolio - Kedjora",
@@ -40,7 +57,7 @@ export default async function PortfolioPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {portfolios.map((portfolio) => {
+              {portfolios.map((portfolio: Portfolio) => { // Tambahkan tipe Portfolio
                 // Parse imageUrls dari JSON string menjadi array
                 const imageUrls = JSON.parse(portfolio.imageUrls) as string[];
                 
@@ -50,9 +67,12 @@ export default async function PortfolioPage() {
                 return (
                   <div key={portfolio.id} className="bg-white rounded-lg overflow-hidden shadow-md border border-slate-200">
                     <div className="aspect-w-16 aspect-h-9 bg-slate-200">
-                      <img 
+                      {/* Ganti tag img dengan komponen Image dari Next.js */}
+                      <Image 
                         src={imageUrls[0] || 'https://placehold.co/600x400/3b82f6/ffffff?text=No+Image'} 
                         alt={portfolio.title} 
+                        width={600}
+                        height={400}
                         className="w-full h-48 object-cover"
                       />
                     </div>

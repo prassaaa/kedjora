@@ -33,8 +33,8 @@ const formSchema = z.object({
 });
 
 interface AboutSettingsFormProps {
-  initialData: any;
-  onSave: (data: any) => Promise<void>;
+  initialData: z.infer<typeof formSchema>;
+  onSave: (data: z.infer<typeof formSchema>) => Promise<void>;
 }
 
 export default function AboutSettingsForm({ initialData, onSave }: AboutSettingsFormProps) {

@@ -3,6 +3,20 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import prisma from "@/lib/db";
 
+// Definisikan interface untuk Testimonial
+interface Testimonial {
+  id: string;
+  name: string;
+  position: string | null;
+  company: string | null;
+  content: string;
+  rating: number;
+  imageUrl: string | null;
+  featured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export default async function TestimonialsPage() {
   // Ambil semua testimonial dari database
   const testimonials = await prisma.testimonial.findMany({
@@ -43,7 +57,7 @@ export default async function TestimonialsPage() {
                 </td>
               </tr>
             ) : (
-              testimonials.map((testimonial) => (
+              testimonials.map((testimonial: Testimonial) => (
                 <tr key={testimonial.id}>
                   <td className="px-4 py-3">{testimonial.name}</td>
                   <td className="px-4 py-3">{testimonial.position || '-'}</td>

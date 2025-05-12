@@ -32,15 +32,26 @@ const formSchema = z.object({
   }).optional().or(z.literal(''))
 });
 
+// Definisikan tipe berdasarkan skema Zod
+type ContactFormValues = z.infer<typeof formSchema>;
+
+// Tipe untuk data inisialisasi form
+interface ContactFormInitialData {
+  address?: string;
+  email?: string;
+  phone?: string;
+  mapUrl?: string;
+}
+
 interface ContactSettingsFormProps {
-  initialData: any;
-  onSave: (data: any) => Promise<void>;
+  initialData: ContactFormInitialData;
+  onSave: (data: ContactFormValues) => Promise<void>;
 }
 
 export default function ContactSettingsForm({ initialData, onSave }: ContactSettingsFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       address: initialData.address || "Jl. Contoh No. 123, Jakarta, Indonesia",
@@ -50,7 +61,7 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
     },
   });
   
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: ContactFormValues) => {
     try {
       setIsSubmitting(true);
       await onSave(values);

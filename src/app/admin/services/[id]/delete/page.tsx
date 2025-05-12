@@ -6,6 +6,21 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+// Definisikan interface untuk Service
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  features: string; // JSON string
+  imageUrl: string | null;
+  price: string | null;
+  isPopular: boolean;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export default function DeleteServicePage() {
   const params = useParams();
   const router = useRouter();
@@ -13,7 +28,7 @@ export default function DeleteServicePage() {
   
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [service, setService] = useState<any>(null);
+  const [service, setService] = useState<Service | null>(null);
   
   useEffect(() => {
     const fetchService = async () => {

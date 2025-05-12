@@ -9,41 +9,89 @@ import ContactSettingsForm from '@/components/admin/settings/contact-settings-fo
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+// Definisi tipe yang lebih spesifik
+interface BaseSetting {
+  id: string;
+  section: string;
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  imageUrl?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  address?: string;
+  email?: string;
+  phone?: string;
+  mapUrl?: string;
+  updatedAt: Date;
+  [key: string]: unknown; // Gunakan unknown daripada any
+}
+
+// Tipe untuk data form
+interface HomeSettingsFormData {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  imageUrl?: string;
+}
+
+interface AboutSettingsFormData {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  imageUrl?: string;
+}
+
+interface ContactSettingsFormData {
+  address?: string;
+  email?: string;
+  phone?: string;
+  mapUrl?: string;
+}
+
+// Union tipe untuk data form
+type SettingsFormData = HomeSettingsFormData | AboutSettingsFormData | ContactSettingsFormData;
+
+interface SettingsRecord {
+  [key: string]: BaseSetting | undefined;
+}
+
 export default function SettingsPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [settings, setSettings] = useState<Record<string, any>>({});
+  const [settings, setSettings] = useState<SettingsRecord>({});
 
   useEffect(() => {
     const fetchSettings = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const response = await fetch('/api/settings');
-        
         if (!response.ok) {
           throw new Error('Failed to fetch settings');
         }
+        const settingsData: BaseSetting[] = await response.json();
         
-        const settingsData = await response.json();
-        
-        // Convert array to object with section as key
-        const settingsObj: Record<string, any> = {};
-        settingsData.forEach((item: any) => {
-          settingsObj[item.section] = item;
+        // Convert to record format
+        const settingsRecord: SettingsRecord = {};
+        settingsData.forEach((item) => {
+          if (item && item.section) {
+            settingsRecord[item.section] = item;
+          }
         });
         
-        setSettings(settingsObj);
+        setSettings(settingsRecord);
       } catch (error) {
         console.error('Error fetching settings:', error);
-        toast.error('Gagal memuat pengaturan');
+        toast.error('Gagal mengambil pengaturan');
       } finally {
         setIsLoading(false);
       }
     };
-    
+
     fetchSettings();
   }, []);
 
-  const saveSettings = async (section: string, data: any) => {
+  const saveSettings = async (section: string, data: SettingsFormData) => {
     try {
       const response = await fetch('/api/settings', {
         method: 'POST',
@@ -55,19 +103,19 @@ export default function SettingsPage() {
           ...data,
         }),
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to save settings');
       }
-      
-      const updatedSetting = await response.json();
-      
+
+      const updatedSetting: BaseSetting = await response.json();
+
       // Update local state
-      setSettings({
-        ...settings,
+      setSettings((prevSettings) => ({
+        ...prevSettings,
         [section]: updatedSetting,
-      });
-      
+      }));
+
       toast.success('Pengaturan berhasil disimpan');
     } catch (error) {
       console.error('Error saving settings:', error);
@@ -97,43 +145,53 @@ export default function SettingsPage() {
           <TabsTrigger value="home">Halaman Utama</TabsTrigger>
           <TabsTrigger value="about">Tentang Kami</TabsTrigger>
           <TabsTrigger value="contact">Kontak</TabsTrigger>
-          <TabsTrigger value="general">Umum</TabsTrigger>
         </TabsList>
-        
+
         <TabsContent value="home" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Pengaturan Halaman Utama</CardTitle>
               <CardDescription>
-                Kelola konten untuk hero section dan bagian lainnya di halaman utama
+                Kelola konten untuk halaman utama
               </CardDescription>
             </CardHeader>
             <CardContent>
               <HomeSettingsForm 
-                initialData={settings.home_hero || {}} 
-                onSave={(data) => saveSettings('home_hero', data)} 
+                initialData={{
+                  title: settings.home_hero?.title ?? "",
+                  subtitle: settings.home_hero?.subtitle ?? "",
+                  buttonText: settings.home_hero?.buttonText ?? "",
+                  buttonLink: settings.home_hero?.buttonLink ?? "",
+                  imageUrl: settings.home_hero?.imageUrl ?? "",
+                }}
+                onSave={(data: HomeSettingsFormData) => saveSettings('home_hero', data)} 
               />
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="about" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Pengaturan Halaman Tentang Kami</CardTitle>
+              <CardTitle>Pengaturan Tentang Kami</CardTitle>
               <CardDescription>
-                Kelola konten untuk halaman tentang perusahaan dan tim
+                Kelola konten untuk halaman Tentang Kami
               </CardDescription>
             </CardHeader>
             <CardContent>
               <AboutSettingsForm 
-                initialData={settings.about || {}} 
-                onSave={(data) => saveSettings('about', data)} 
+                initialData={{
+                  title: settings.about?.title ?? "",
+                  subtitle: settings.about?.subtitle ?? "",
+                  content: settings.about?.content ?? "",
+                  imageUrl: settings.about?.imageUrl ?? "",
+                }}
+                onSave={(data: AboutSettingsFormData) => saveSettings('about', data)} 
               />
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="contact" className="space-y-4">
           <Card>
             <CardHeader>
@@ -144,8 +202,13 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent>
               <ContactSettingsForm 
-                initialData={settings.contact || {}} 
-                onSave={(data) => saveSettings('contact', data)} 
+                initialData={{
+                  address: settings.contact?.address ?? "",
+                  email: settings.contact?.email ?? "",
+                  phone: settings.contact?.phone ?? "",
+                  mapUrl: settings.contact?.mapUrl ?? "",
+                }}
+                onSave={(data: ContactSettingsFormData) => saveSettings('contact', data)} 
               />
             </CardContent>
           </Card>
