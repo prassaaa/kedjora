@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  role          Role      @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String    @db.Text
+  features    String    @db.Text // Ubah dari String[] menjadi String Text
+  imageUrl    String?
+  price       String?
+  isPopular   Boolean   @default(false)
+  isActive    Boolean   @default(true)
+  orders      Order[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Portfolio {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String    @db.Text
+  clientName  String?
+  serviceType String
+  imageUrls   String    @db.Text // Ubah dari String[] menjadi String Text
+  featured    Boolean   @default(false)
+  technologies String    @db.Text // Ubah dari String[] menjadi String Text
+  demoUrl     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Testimonial {
+  id          String    @id @default(cuid())
+  name        String
+  position    String?
+  company     String?
+  content     String    @db.Text
+  rating      Int       @default(5)
+  imageUrl    String?
+  featured    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Order {
+  id          String    @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  serviceId   String
+  service     Service   @relation(fields: [serviceId], references: [id])
+  message     String    @db.Text
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model PageContent {
+  id          String    @id @default(cuid())
+  section     String    @unique
+  title       String?
+  subtitle    String?
+  content     String?   @db.Text
+  imageUrl    String?
+  buttonText  String?
+  buttonLink  String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?   @db.Text
+  content     String    @db.Text
+  imageUrl    String?
+  published   Boolean   @default(false)
+  authorId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Faq {
+  id          String    @id @default(cuid())
+  question    String
+  answer      String    @db.Text
+  order       Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
