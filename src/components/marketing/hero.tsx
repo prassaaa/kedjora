@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 
@@ -53,11 +54,17 @@ export default function Hero() {
               <div className="aspect-w-16 aspect-h-9 bg-slate-800 flex items-center justify-center">
                 <div className="w-full h-full bg-gradient-to-br from-blue-600 to-purple-600 opacity-80 absolute"></div>
                 <div className="relative z-10 text-center p-6">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 text-3xl font-bold">K</span>
+                  <div className="flex justify-center items-center mb-4">
+                    <Image 
+                      src="/logo.png" 
+                      alt="Kedjora Logo" 
+                      width={100} 
+                      height={100}
+                      className="object-contain" 
+                    />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Web & App Development</h3>
-                  <p className="mt-2 text-white opacity-90">Website responsif dan aplikasi modern</p>
+                  <h3 className="text-2xl font-bold text-white">Kediri Jorah [Kedjora]</h3>
+                  <p className="mt-2 text-white opacity-90">Menerangi jalan digital Anda dari Kediri ke dunia</p>
                 </div>
               </div>
             </div>
