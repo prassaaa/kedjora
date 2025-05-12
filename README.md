@@ -48,10 +48,10 @@ Kedjora adalah platform digital agency yang menawarkan layanan pembuatan website
 ## 📷 Screenshot
 
 <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-  <img src="https://placehold.co/600x400/e2e8f0/1e293b?text=Homepage" alt="Homepage" width="100%">
-  <img src="https://placehold.co/600x400/e2e8f0/1e293b?text=Admin+Dashboard" alt="Admin Dashboard" width="100%">
-  <img src="https://placehold.co/600x400/e2e8f0/1e293b?text=Services+Page" alt="Services Page" width="100%">
-  <img src="https://placehold.co/600x400/e2e8f0/1e293b?text=Order+Management" alt="Order Management" width="100%">
+  <img src="images/homepage.png" alt="Homepage" width="100%">
+  <img src="images/admindashboard.png" alt="Admin Dashboard" width="100%">
+  <img src="images/services.png" alt="Services Page" width="100%">
+  <img src="images/ordermanagement.png" alt="Order Management" width="100%">
 </div>
 
 ## 🛠️ Instalasi & Setup
@@ -65,7 +65,7 @@ Kedjora adalah platform digital agency yang menawarkan layanan pembuatan website
 
 1. Clone repositori
    ```bash
-   git clone https://github.com/yourusername/kedjora.git
+   git clone https://github.com/prassaaa/kedjora.git
    cd kedjora
    ```
 
