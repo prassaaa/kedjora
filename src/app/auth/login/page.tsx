@@ -6,33 +6,24 @@ import { signIn, useSession } from "next-auth/react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email("Email tidak valid"),
-  password: z.string().min(1, "Password harus diisi"), // Ubah dari min(6) menjadi min(1) untuk debuging
+  password: z.string().min(1, "Password harus diisi"),
 });
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
   const callbackUrl = searchParams.get('callbackUrl') || '/admin';
-  const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Redirect jika sudah login
   useEffect(() => {
@@ -41,7 +32,7 @@ export default function LoginPage() {
     }
   }, [status, router]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -49,10 +40,10 @@ export default function LoginPage() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: FormData) {
     try {
-      setIsPending(true);
-      setErrorMessage(null);
+      setIsSubmitting(true);
+      setError(null);
 
       console.log("Mencoba login dengan:", { email: values.email, password: "***" });
 
@@ -66,13 +57,11 @@ export default function LoginPage() {
 
       if (response?.error) {
         console.error("Login error:", response.error);
-        setErrorMessage("Email atau password salah");
-        toast.error("Email atau password salah");
+        setError("Email atau password salah");
         return;
       }
 
       if (response?.ok) {
-        toast.success("Login berhasil!");
         console.log("Login berhasil. Mengalihkan ke:", callbackUrl);
         // Gunakan setTimeout untuk memastikan state terupdate dengan benar
         setTimeout(() => {
@@ -82,95 +71,130 @@ export default function LoginPage() {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setErrorMessage("Terjadi kesalahan saat login");
-      toast.error("Terjadi kesalahan");
+      setError("Terjadi kesalahan saat login");
     } finally {
-      setIsPending(false);
+      setIsSubmitting(false);
     }
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-slate-100">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold">Login Admin</h1>
-          <p className="text-slate-500">Masuk ke dashboard admin</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-8"
+      >
+        <motion.div 
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-slate-900 bg-clip-text text-transparent">
+            Admin Panel
+          </h1>
+          <p className="text-slate-500 mt-2">Masuk ke dashboard admin</p>
+        </motion.div>
 
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          {errorMessage && (
-            <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">
-              {errorMessage}
-            </div>
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm"
+            >
+              {error}
+            </motion.div>
           )}
+        </AnimatePresence>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="admin@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="space-y-4">
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                {...form.register("email")}
+                className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white/50"
+                placeholder="admin@example.com"
               />
+              {form.formState.errors.email && (
+                <p className="mt-1 text-sm text-red-600">{form.formState.errors.email.message}</p>
+              )}
+            </motion.div>
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          type={showPassword ? "text" : "password"}
-                          placeholder="••••••••"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="absolute right-0 top-0 h-full"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  {...form.register("password")}
+                  className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white/50"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              {form.formState.errors.password && (
+                <p className="mt-1 text-sm text-red-600">{form.formState.errors.password.message}</p>
+              )}
+            </motion.div>
+          </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isPending}
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Memproses...
-                  </>
-                ) : (
-                  "Login"
-                )}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </div>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50 transition-all duration-200"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Memproses...
+                </>
+              ) : (
+                "Masuk"
+              )}
+            </button>
+          </motion.div>
+        </form>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-6 text-center text-sm text-slate-500"
+        >
+          <a href="/" className="text-blue-600 hover:text-blue-800 font-medium">
+            Kembali ke Beranda
+          </a>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
