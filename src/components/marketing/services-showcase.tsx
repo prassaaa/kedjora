@@ -105,7 +105,7 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
   };
   
   return (
-    <div className="py-20 bg-gradient-to-b from-slate-50 to-white">
+    <div className="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -113,9 +113,9 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">Layanan Kami</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-slate-600">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">Layanan Kami</h2>
+          <div className="w-20 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             Solusi lengkap untuk kebutuhan digital dan akademik Anda dengan standar kualitas tertinggi.
           </p>
         </motion.div>
@@ -133,7 +133,7 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 activeTab === null
                   ? "bg-blue-600 text-white shadow-md"
-                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                  : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
               }`}
             >
               Semua
@@ -145,7 +145,7 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeTab === category
                     ? "bg-blue-600 text-white shadow-md"
-                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                    : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
                 }`}
               >
                 {getCategoryName(category)}
@@ -185,12 +185,12 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
                       POPULER
                     </div>
                   )}
-                  <Card className="h-full flex flex-col overflow-hidden border border-slate-200 relative z-0 bg-white backdrop-blur-sm">
+                  <Card className="h-full flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700 relative z-0 bg-white dark:bg-slate-900 backdrop-blur-sm">
                     <CardHeader className="relative pb-4">
-                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${hoveredId === service.id ? 'bg-blue-600' : 'bg-blue-100'}`}>
-                        <ServiceIcon className={`h-8 w-8 transition-all duration-300 ${hoveredId === service.id ? 'text-white' : 'text-blue-600'}`} />
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${hoveredId === service.id ? 'bg-blue-600' : 'bg-blue-100 dark:bg-blue-900'}`}>
+                        <ServiceIcon className={`h-8 w-8 transition-all duration-300 ${hoveredId === service.id ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`} />
                       </div>
-                      <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>
+                      <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">{service.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow pt-0">
                       <ul className="space-y-4">
@@ -203,34 +203,34 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 + (index * 0.1) }}
                           >
-                            <div className={`p-1.5 rounded-full mr-3 transition-colors duration-300 ${hoveredId === service.id ? 'bg-blue-100' : 'bg-slate-100'}`}>
-                              <CheckCircle2 className={`h-5 w-5 ${hoveredId === service.id ? 'text-blue-600' : 'text-green-500'}`} />
+                            <div className={`p-1.5 rounded-full mr-3 transition-colors duration-300 ${hoveredId === service.id ? 'bg-blue-100 dark:bg-blue-900' : 'bg-slate-100 dark:bg-slate-800'}`}>
+                              <CheckCircle2 className={`h-5 w-5 ${hoveredId === service.id ? 'text-blue-600 dark:text-blue-400' : 'text-green-500 dark:text-green-400'}`} />
                             </div>
-                            <span className="text-sm font-medium text-slate-700">{feature}</span>
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{feature}</span>
                           </motion.li>
                         ))}
                         {features.length > 2 && (
-                          <li className="text-sm font-medium text-blue-600 ml-9">
+                          <li className="text-sm font-medium text-blue-600 dark:text-blue-400 ml-9">
                             +{features.length - 2} fitur lainnya
                           </li>
                         )}
                       </ul>
                       {service.price && (
-                        <div className="mt-6 px-4 py-3 bg-slate-50 rounded-lg">
-                          <span className="text-sm text-slate-500">Mulai dari</span>
-                          <div className="text-xl font-bold text-blue-600">
+                        <div className="mt-6 px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                          <span className="text-sm text-slate-500 dark:text-slate-400">Mulai dari</span>
+                          <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
                             {service.price}
                           </div>
                         </div>
                       )}
                     </CardContent>
-                    <CardFooter className="p-4 bg-slate-50 mt-4">
+                    <CardFooter className="p-4 bg-slate-50 dark:bg-slate-800 mt-4">
                       <Button 
                         variant="outline" 
                         className={`w-full border transition-all duration-300 group ${
                           hoveredId === service.id 
-                            ? 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
-                            : 'border-slate-300'
+                            ? 'border-blue-600 dark:border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-800 hover:text-white'
+                            : 'border-slate-300 dark:border-slate-700'
                         }`}
                         asChild
                       >
@@ -257,7 +257,7 @@ export default function ServicesShowcase({ services }: ServicesShowcaseProps) {
         >
           <Button 
             size="lg" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             asChild
           >
             <Link href="/services" className="flex items-center">

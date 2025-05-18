@@ -46,13 +46,13 @@ export default function TestimonialsSection() {
   // Fallback data jika tidak ada testimonial atau masih loading
   if (isLoading) {
     return (
-      <div className="py-16 bg-white">
+      <div className="py-16 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <div className="opacity-0 animate-fade-in">
-              <h2 className="text-4xl font-bold text-slate-900 mb-3">Apa Kata Klien</h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
-              <p className="text-lg text-slate-600">Memuat testimonial...</p>
+              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">Apa Kata Klien</h2>
+              <div className="w-20 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mb-6 rounded-full"></div>
+              <p className="text-lg text-slate-600 dark:text-slate-300">Memuat testimonial...</p>
             </div>
           </div>
         </div>
@@ -105,30 +105,81 @@ export default function TestimonialsSection() {
   };
 
   const getColorClasses = (color: string, isHovered: boolean) => {
-    const colorMap: Record<string, { light: string, medium: string, dark: string }> = {
-      blue: { light: 'bg-blue-50', medium: 'bg-blue-100', dark: 'bg-blue-600' },
-      indigo: { light: 'bg-indigo-50', medium: 'bg-indigo-100', dark: 'bg-indigo-600' },
-      purple: { light: 'bg-purple-50', medium: 'bg-purple-100', dark: 'bg-purple-600' },
-      rose: { light: 'bg-rose-50', medium: 'bg-rose-100', dark: 'bg-rose-600' },
-      amber: { light: 'bg-amber-50', medium: 'bg-amber-100', dark: 'bg-amber-600' },
-      emerald: { light: 'bg-emerald-50', medium: 'bg-emerald-100', dark: 'bg-emerald-600' },
-      teal: { light: 'bg-teal-50', medium: 'bg-teal-100', dark: 'bg-teal-600' }
+    const colorMap: Record<string, { light: string, medium: string, dark: string, lightDark: string, mediumDark: string, darkDark: string }> = {
+      blue: { 
+        light: 'bg-blue-50', 
+        medium: 'bg-blue-100', 
+        dark: 'bg-blue-600',
+        lightDark: 'dark:bg-blue-900/30',
+        mediumDark: 'dark:bg-blue-900/50',
+        darkDark: 'dark:bg-blue-700'
+      },
+      indigo: { 
+        light: 'bg-indigo-50', 
+        medium: 'bg-indigo-100', 
+        dark: 'bg-indigo-600',
+        lightDark: 'dark:bg-indigo-900/30',
+        mediumDark: 'dark:bg-indigo-900/50',
+        darkDark: 'dark:bg-indigo-700'
+      },
+      purple: { 
+        light: 'bg-purple-50', 
+        medium: 'bg-purple-100', 
+        dark: 'bg-purple-600',
+        lightDark: 'dark:bg-purple-900/30',
+        mediumDark: 'dark:bg-purple-900/50',
+        darkDark: 'dark:bg-purple-700'
+      },
+      rose: { 
+        light: 'bg-rose-50', 
+        medium: 'bg-rose-100', 
+        dark: 'bg-rose-600',
+        lightDark: 'dark:bg-rose-900/30',
+        mediumDark: 'dark:bg-rose-900/50',
+        darkDark: 'dark:bg-rose-700'
+      },
+      amber: { 
+        light: 'bg-amber-50', 
+        medium: 'bg-amber-100', 
+        dark: 'bg-amber-600',
+        lightDark: 'dark:bg-amber-900/30',
+        mediumDark: 'dark:bg-amber-900/50',
+        darkDark: 'dark:bg-amber-700'
+      },
+      emerald: { 
+        light: 'bg-emerald-50', 
+        medium: 'bg-emerald-100', 
+        dark: 'bg-emerald-600',
+        lightDark: 'dark:bg-emerald-900/30',
+        mediumDark: 'dark:bg-emerald-900/50',
+        darkDark: 'dark:bg-emerald-700'
+      },
+      teal: { 
+        light: 'bg-teal-50', 
+        medium: 'bg-teal-100', 
+        dark: 'bg-teal-600',
+        lightDark: 'dark:bg-teal-900/30',
+        mediumDark: 'dark:bg-teal-900/50',
+        darkDark: 'dark:bg-teal-700'
+      }
     };
     
     return {
-      bgColor: isHovered ? colorMap[color].medium : colorMap[color].light,
-      textColor: isHovered ? `text-${color}-600` : `text-${color}-500`,
-      accentColor: colorMap[color].dark
+      bgColor: isHovered 
+        ? `${colorMap[color].medium} ${colorMap[color].mediumDark}` 
+        : `${colorMap[color].light} ${colorMap[color].lightDark}`,
+      textColor: `text-${color}-600 dark:text-${color}-400`,
+      accentColor: `${colorMap[color].dark} ${colorMap[color].darkDark}`
     };
   };
 
   return (
-    <div className="py-24 bg-gradient-to-b from-white to-slate-50">
+    <div className="py-24 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 opacity-0 animate-fade-in">
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">Apa Kata Klien</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
-          <p className="text-lg text-slate-600">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">Apa Kata Klien</h2>
+          <div className="w-20 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg text-slate-600 dark:text-slate-300">
             Testimonial dari klien yang telah menggunakan layanan kami
           </p>
         </div>
@@ -149,12 +200,12 @@ export default function TestimonialsSection() {
                 <div className="relative mb-6">
                   <Quote className={`absolute -top-4 -left-4 h-8 w-8 opacity-20 ${colors.textColor}`} />
                 </div>
-                <p className="text-slate-700 italic mb-6 relative z-10">&ldquo;{testimonial.content}&rdquo;</p>
+                <p className="text-slate-700 dark:text-slate-300 italic mb-6 relative z-10">&ldquo;{testimonial.content}&rdquo;</p>
                 
                 <div className="flex justify-between items-end">
                   <div className="flex items-center">
                     {testimonial.imageUrl ? (
-                      <div className="mr-4 border-2 border-white rounded-full shadow-md overflow-hidden">
+                      <div className="mr-4 border-2 border-white dark:border-slate-800 rounded-full shadow-md overflow-hidden">
                         <Image
                           src={testimonial.imageUrl}
                           alt={testimonial.name}
@@ -171,8 +222,8 @@ export default function TestimonialsSection() {
                       </div>
                     )}
                     <div>
-                      <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
-                      <p className="text-sm text-slate-600">
+                      <h4 className="font-bold text-slate-900 dark:text-white">{testimonial.name}</h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
                         {testimonial.position}
                         {testimonial.position && testimonial.company && ', '}
                         {testimonial.company}
@@ -194,7 +245,7 @@ export default function TestimonialsSection() {
         <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
           <Button 
             variant="outline" 
-            className="border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white group transition-all duration-300 px-6 py-3 text-base shadow hover:shadow-lg"
+            className="border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-700 hover:text-white group transition-all duration-300 px-6 py-3 text-base shadow hover:shadow-lg"
             asChild
           >
             <Link href="/testimonials" className="flex items-center">

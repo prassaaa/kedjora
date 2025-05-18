@@ -78,8 +78,8 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
         ease: "easeOut"
       }
     }),
-    hover: {
-      y: -15,
+    hover: { 
+      y: -15, 
       boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       transition: {
         type: "spring",

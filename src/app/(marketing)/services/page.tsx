@@ -84,15 +84,15 @@ export default async function ServicesPage() {
   return (
     <>
       {/* Hero section */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-900 py-20">
+      <div className="bg-gradient-to-r from-slate-900 to-blue-900 dark:from-slate-950 dark:to-blue-950 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           {/* Decorative elements */}
-          <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500 rounded-full opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500 rounded-full opacity-10 translate-x-1/3 translate-y-1/3"></div>
+          <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500 dark:bg-blue-600 rounded-full opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500 dark:bg-purple-600 rounded-full opacity-10 translate-x-1/3 translate-y-1/3"></div>
           
           <div className="relative">
             <h1 className="text-5xl font-bold text-white mb-4 opacity-0 animate-fade-in">Layanan Kami</h1>
-            <div className="w-24 h-1 bg-blue-400 mx-auto mb-6 rounded-full opacity-0 animate-fade-in" style={{ animationDelay: '200ms' }}></div>
+            <div className="w-24 h-1 bg-blue-400 dark:bg-blue-500 mx-auto mb-6 rounded-full opacity-0 animate-fade-in" style={{ animationDelay: '200ms' }}></div>
             <p className="mt-4 text-xl text-slate-200 max-w-3xl mx-auto opacity-0 animate-fade-in" style={{ animationDelay: '400ms' }}>
               Solusi lengkap untuk kebutuhan digital dan akademik Anda dengan standar kualitas tertinggi.
             </p>
@@ -102,7 +102,7 @@ export default async function ServicesPage() {
       
       {/* Category filter */}
       {categories.length > 1 && (
-        <div className="bg-slate-50 py-8 border-b border-slate-200">
+        <div className="bg-slate-50 dark:bg-slate-900 py-8 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap justify-center gap-2 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
               <Link 
@@ -115,7 +115,7 @@ export default async function ServicesPage() {
                 <Link
                   key={index}
                   href={`#${category.toLowerCase()}`}
-                  className="px-5 py-2 rounded-full bg-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-300 transition-all duration-300"
+                  className="px-5 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition-all duration-300"
                 >
                   {category}
                 </Link>
@@ -126,11 +126,11 @@ export default async function ServicesPage() {
       )}
       
       {/* Services grid */}
-      <div className="py-20 bg-gradient-to-b from-white to-slate-50">
+      <div className="py-20 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.length === 0 ? (
-              <div className="col-span-full text-center py-12 text-slate-500 bg-slate-100 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '700ms' }}>
+              <div className="col-span-full text-center py-12 text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '700ms' }}>
                 <p className="text-lg">Belum ada layanan yang tersedia.</p>
                 <p className="mt-2">Silakan kunjungi kembali nanti.</p>
               </div>
@@ -150,50 +150,50 @@ export default async function ServicesPage() {
                     <Card 
                       className={`h-full flex flex-col overflow-hidden rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 ${
                         service.isPopular 
-                          ? 'border-blue-200 shadow-lg' 
-                          : 'border-slate-200 shadow'
-                      }`}
+                          ? 'border-blue-200 dark:border-blue-800 shadow-lg' 
+                          : 'border-slate-200 dark:border-slate-700 shadow'
+                      } dark:bg-slate-900`}
                     >
                       {service.isPopular && (
-                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider py-2 px-4 text-center">
+                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 text-white text-xs font-bold uppercase tracking-wider py-2 px-4 text-center">
                           Layanan Populer
                         </div>
                       )}
                       <CardHeader className="relative pb-2">
-                        <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
-                          <ServiceIcon className="h-8 w-8 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                        <div className="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                          <ServiceIcon className="h-8 w-8 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors duration-300" />
                         </div>
-                        <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>
-                        <p className="text-slate-600 mt-2">{service.description}</p>
+                        <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">{service.title}</CardTitle>
+                        <p className="text-slate-600 dark:text-slate-300 mt-2">{service.description}</p>
                       </CardHeader>
                       <CardContent className="flex-grow pt-4">
                         <ul className="space-y-3">
                           {features.slice(0, 5).map((feature, index) => (
                             <li key={index} className="flex items-start">
-                              <div className="p-1 rounded-full bg-green-100 mr-3 flex-shrink-0 mt-0.5">
-                                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                              <div className="p-1 rounded-full bg-green-100 dark:bg-green-900/30 mr-3 flex-shrink-0 mt-0.5">
+                                <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
                               </div>
-                              <span className="text-sm text-slate-700">{feature}</span>
+                              <span className="text-sm text-slate-700 dark:text-slate-300">{feature}</span>
                             </li>
                           ))}
                           {features.length > 5 && (
-                            <li className="text-sm font-medium text-blue-600 ml-8">
+                            <li className="text-sm font-medium text-blue-600 dark:text-blue-400 ml-8">
                               +{features.length - 5} fitur lainnya
                             </li>
                           )}
                         </ul>
                         {service.price && (
-                          <div className="mt-6 px-4 py-3 bg-slate-50 rounded-lg border border-slate-100">
-                            <span className="text-sm text-slate-500">Mulai dari</span>
-                            <div className="text-xl font-bold text-blue-600">
+                          <div className="mt-6 px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+                            <span className="text-sm text-slate-500 dark:text-slate-400">Mulai dari</span>
+                            <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
                               {service.price}
                             </div>
                           </div>
                         )}
                       </CardContent>
-                      <CardFooter className="p-4 bg-slate-50 border-t border-slate-100">
+                      <CardFooter className="p-4 bg-slate-50 dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
                         <Button 
-                          className="w-full bg-slate-900 hover:bg-blue-600 group transition-colors duration-300" 
+                          className="w-full bg-slate-900 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-600 group transition-colors duration-300" 
                           asChild
                         >
                           <Link href={`/services/${service.slug}`} className="flex items-center justify-center">
@@ -212,7 +212,7 @@ export default async function ServicesPage() {
       </div>
       
       {/* CTA section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-700 dark:to-indigo-800 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           {/* Decorative elements */}
           <div className="absolute inset-0 overflow-hidden opacity-20">
@@ -230,7 +230,7 @@ export default async function ServicesPage() {
               <div className="mt-8 opacity-0 animate-fade-in" style={{ animationDelay: '1100ms' }}>
                 <Button 
                   size="lg" 
-                  className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  className="bg-white text-blue-700 hover:bg-blue-50 dark:hover:bg-slate-100 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   asChild
                 >
                   <Link href="/contact" className="flex items-center">
