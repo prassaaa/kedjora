@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ExternalLink, Code, Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Define interface for Portfolio
 interface Portfolio {
@@ -88,84 +89,13 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
     }
   };
 
-  // Dynamic color handler function
-  const getColorClasses = (color: string, isHovered: boolean) => {
-    const baseClasses = {
-      blue: {
-        bg: "bg-blue-50",
-        bgHover: "bg-blue-100",
-        border: "border-blue-200",
-        borderHover: "border-blue-600",
-        textColor: "text-blue-600",
-        shadow: "shadow-blue-200/50"
-      },
-      indigo: {
-        bg: "bg-indigo-50",
-        bgHover: "bg-indigo-100",
-        border: "border-indigo-200",
-        borderHover: "border-indigo-600",
-        textColor: "text-indigo-600",
-        shadow: "shadow-indigo-200/50"
-      },
-      purple: {
-        bg: "bg-purple-50",
-        bgHover: "bg-purple-100",
-        border: "border-purple-200",
-        borderHover: "border-purple-600",
-        textColor: "text-purple-600",
-        shadow: "shadow-purple-200/50"
-      },
-      rose: {
-        bg: "bg-rose-50",
-        bgHover: "bg-rose-100",
-        border: "border-rose-200",
-        borderHover: "border-rose-600",
-        textColor: "text-rose-600",
-        shadow: "shadow-rose-200/50"
-      },
-      amber: {
-        bg: "bg-amber-50",
-        bgHover: "bg-amber-100",
-        border: "border-amber-200",
-        borderHover: "border-amber-600",
-        textColor: "text-amber-600",
-        shadow: "shadow-amber-200/50"
-      },
-      emerald: {
-        bg: "bg-emerald-50",
-        bgHover: "bg-emerald-100",
-        border: "border-emerald-200",
-        borderHover: "border-emerald-600",
-        textColor: "text-emerald-600",
-        shadow: "shadow-emerald-200/50"
-      },
-      teal: {
-        bg: "bg-teal-50",
-        bgHover: "bg-teal-100",
-        border: "border-teal-200",
-        borderHover: "border-teal-600",
-        textColor: "text-teal-600",
-        shadow: "shadow-teal-200/50"
-      }
-    };
-
-    const colors = baseClasses[color as keyof typeof baseClasses];
-
-    return {
-      cardBg: isHovered ? colors.bgHover : colors.bg,
-      cardBorder: isHovered ? colors.borderHover : colors.border,
-      cardText: colors.textColor,
-      shadow: colors.shadow
-    };
-  };
-
   return (
     <>
       {/* Hero section with gradient background */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-900 py-20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-900 to-blue-900 dark:from-slate-950 dark:to-blue-950 py-20 relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-40 h-40 bg-blue-500 rounded-full opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-60 h-60 bg-purple-500 rounded-full opacity-10 translate-x-1/3 translate-y-1/3"></div>
+        <div className="absolute top-0 left-0 w-40 h-40 bg-blue-500 dark:bg-blue-700 rounded-full opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-60 h-60 bg-purple-500 dark:bg-purple-700 rounded-full opacity-10 translate-x-1/3 translate-y-1/3"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <motion.div 
@@ -174,7 +104,7 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
             transition={{ duration: 0.7 }}
           >
             <h1 className="text-5xl font-bold text-white mb-4">Portfolio</h1>
-            <div className="w-24 h-1 bg-blue-400 mx-auto mb-6 rounded-full"></div>
+            <div className="w-24 h-1 bg-blue-400 dark:bg-blue-500 mx-auto mb-6 rounded-full"></div>
             <p className="mt-4 text-xl text-slate-200 max-w-3xl mx-auto">
               Proyek-proyek terbaik yang telah kami kerjakan
             </p>
@@ -184,7 +114,7 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
       
       {/* Category filter tabs */}
       {categories.length > 1 && (
-        <div className="bg-slate-50 py-8 border-b border-slate-200">
+        <div className="bg-slate-50 dark:bg-slate-900 py-8 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -194,11 +124,12 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
             >
               <button
                 onClick={() => setActiveCategory(null)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={cn(
+                  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
                   activeCategory === null
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                }`}
+                    ? "bg-blue-600 dark:bg-blue-700 text-white shadow-md"
+                    : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
+                )}
               >
                 Semua Kategori
               </button>
@@ -206,11 +137,12 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                 <button
                   key={index}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
                     activeCategory === category
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                  }`}
+                      ? "bg-blue-600 dark:bg-blue-700 text-white shadow-md"
+                      : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
+                  )}
                 >
                   {category}
                 </button>
@@ -221,10 +153,10 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
       )}
       
       {/* Portfolio gallery */}
-      <div className="py-16 bg-gradient-to-b from-white to-slate-50">
+      <div className="py-16 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredPortfolios.length === 0 ? (
-            <div className="text-center py-16 text-slate-500 bg-slate-100 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '400ms' }}>
+            <div className="text-center py-16 text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '400ms' }}>
               <p className="text-lg">Portfolio sedang dalam tahap pengembangan.</p>
               <p className="mt-2">Silakan kunjungi kembali nanti.</p>
             </div>
@@ -245,9 +177,9 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                   // Parse technologies from JSON string to array
                   const technologies = JSON.parse(portfolio.technologies) as string[];
                   
-                  // Get random color based on portfolio id
+                  // Get color based on portfolio id
                   const color = getRandomColor(portfolio.id);
-                  const colors = getColorClasses(color, hoveredId === portfolio.id);
+                  const isHovered = hoveredId === portfolio.id;
                   
                   return (
                     <motion.div
@@ -259,12 +191,47 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                       whileHover="hover"
                       onMouseEnter={() => setHoveredId(portfolio.id)}
                       onMouseLeave={() => setHoveredId(null)}
-                      className={`rounded-2xl overflow-hidden border ${colors.cardBorder} shadow-lg ${colors.cardBg} ${colors.shadow} transition-all duration-500`}
+                      className={cn(
+                        "rounded-2xl overflow-hidden border transition-all duration-500",
+                        color === 'blue' ? "border-blue-200 dark:border-blue-900 shadow-blue-200/50 dark:shadow-blue-900/20" : "",
+                        color === 'indigo' ? "border-indigo-200 dark:border-indigo-900 shadow-indigo-200/50 dark:shadow-indigo-900/20" : "",
+                        color === 'purple' ? "border-purple-200 dark:border-purple-900 shadow-purple-200/50 dark:shadow-purple-900/20" : "",
+                        color === 'rose' ? "border-rose-200 dark:border-rose-900 shadow-rose-200/50 dark:shadow-rose-900/20" : "",
+                        color === 'amber' ? "border-amber-200 dark:border-amber-900 shadow-amber-200/50 dark:shadow-amber-900/20" : "",
+                        color === 'emerald' ? "border-emerald-200 dark:border-emerald-900 shadow-emerald-200/50 dark:shadow-emerald-900/20" : "",
+                        color === 'teal' ? "border-teal-200 dark:border-teal-900 shadow-teal-200/50 dark:shadow-teal-900/20" : "",
+                        isHovered ? (
+                          color === 'blue' ? "border-blue-600 dark:border-blue-500" :
+                          color === 'indigo' ? "border-indigo-600 dark:border-indigo-500" :
+                          color === 'purple' ? "border-purple-600 dark:border-purple-500" :
+                          color === 'rose' ? "border-rose-600 dark:border-rose-500" :
+                          color === 'amber' ? "border-amber-600 dark:border-amber-500" :
+                          color === 'emerald' ? "border-emerald-600 dark:border-emerald-500" :
+                          "border-teal-600 dark:border-teal-500"
+                        ) : "",
+                        color === 'blue' ? "bg-blue-50 dark:bg-slate-800/80" : "",
+                        color === 'indigo' ? "bg-indigo-50 dark:bg-slate-800/80" : "",
+                        color === 'purple' ? "bg-purple-50 dark:bg-slate-800/80" : "",
+                        color === 'rose' ? "bg-rose-50 dark:bg-slate-800/80" : "",
+                        color === 'amber' ? "bg-amber-50 dark:bg-slate-800/80" : "",
+                        color === 'emerald' ? "bg-emerald-50 dark:bg-slate-800/80" : "",
+                        color === 'teal' ? "bg-teal-50 dark:bg-slate-800/80" : "",
+                        isHovered ? (
+                          color === 'blue' ? "bg-blue-100 dark:bg-slate-800" :
+                          color === 'indigo' ? "bg-indigo-100 dark:bg-slate-800" :
+                          color === 'purple' ? "bg-purple-100 dark:bg-slate-800" :
+                          color === 'rose' ? "bg-rose-100 dark:bg-slate-800" :
+                          color === 'amber' ? "bg-amber-100 dark:bg-slate-800" :
+                          color === 'emerald' ? "bg-emerald-100 dark:bg-slate-800" :
+                          "bg-teal-100 dark:bg-slate-800"
+                        ) : "",
+                        "shadow-lg"
+                      )}
                     >
                       <div className="relative overflow-hidden group">
                         {imageUrls[0] ? (
                           <>
-                            <div className="aspect-w-16 aspect-h-9 bg-slate-200 overflow-hidden">
+                            <div className="aspect-w-16 aspect-h-9 bg-slate-200 dark:bg-slate-700 overflow-hidden">
                               <Image 
                                 src={imageUrls[0]} 
                                 alt={portfolio.title} 
@@ -276,12 +243,21 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           </>
                         ) : (
-                          <div className="w-full h-48 flex items-center justify-center bg-slate-200 text-slate-600">
+                          <div className="w-full h-48 flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400">
                             <span className="text-lg font-medium">No Image</span>
                           </div>
                         )}
                         <div className="absolute top-3 left-3">
-                          <span className={`px-3 py-1 bg-${color}-600 text-white text-xs font-bold rounded-full shadow-md`}>
+                          <span className={cn(
+                            "px-3 py-1 text-white text-xs font-bold rounded-full shadow-md",
+                            color === 'blue' ? "bg-blue-600 dark:bg-blue-700" : "",
+                            color === 'indigo' ? "bg-indigo-600 dark:bg-indigo-700" : "",
+                            color === 'purple' ? "bg-purple-600 dark:bg-purple-700" : "",
+                            color === 'rose' ? "bg-rose-600 dark:bg-rose-700" : "",
+                            color === 'amber' ? "bg-amber-600 dark:bg-amber-700" : "",
+                            color === 'emerald' ? "bg-emerald-600 dark:bg-emerald-700" : "",
+                            color === 'teal' ? "bg-teal-600 dark:bg-teal-700" : "",
+                          )}>
                             {portfolio.serviceType}
                           </span>
                         </div>
@@ -295,7 +271,7 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                       </div>
                       
                       <div className="p-6">
-                        <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
                           <Calendar className="h-3 w-3" />
                           <span>{formatDate(portfolio.createdAt)}</span>
                           {portfolio.clientName && (
@@ -306,11 +282,20 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                           )}
                         </div>
                         
-                        <h3 className={`text-xl font-bold ${colors.cardText} mb-3 line-clamp-1`}>
+                        <h3 className={cn(
+                          "text-xl font-bold mb-3 line-clamp-1",
+                          color === 'blue' ? "text-blue-600 dark:text-blue-400" : "",
+                          color === 'indigo' ? "text-indigo-600 dark:text-indigo-400" : "",
+                          color === 'purple' ? "text-purple-600 dark:text-purple-400" : "",
+                          color === 'rose' ? "text-rose-600 dark:text-rose-400" : "",
+                          color === 'amber' ? "text-amber-600 dark:text-amber-400" : "",
+                          color === 'emerald' ? "text-emerald-600 dark:text-emerald-400" : "",
+                          color === 'teal' ? "text-teal-600 dark:text-teal-400" : ""
+                        )}>
                           {portfolio.title}
                         </h3>
                         
-                        <p className="text-slate-600 mb-4 line-clamp-2">
+                        <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">
                           {portfolio.description}
                         </p>
                         
@@ -319,14 +304,23 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                             {technologies.slice(0, 3).map((tech, idx) => (
                               <span 
                                 key={idx} 
-                                className={`flex items-center px-2 py-1 bg-${color}-100 ${colors.cardText} text-xs rounded-full`}
+                                className={cn(
+                                  "flex items-center px-2 py-1 text-xs rounded-full",
+                                  color === 'blue' ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300" : "",
+                                  color === 'indigo' ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300" : "",
+                                  color === 'purple' ? "bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300" : "",
+                                  color === 'rose' ? "bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-300" : "",
+                                  color === 'amber' ? "bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300" : "",
+                                  color === 'emerald' ? "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300" : "",
+                                  color === 'teal' ? "bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-300" : ""
+                                )}
                               >
                                 <Code className="h-3 w-3 mr-1" />
                                 {tech}
                               </span>
                             ))}
                             {technologies.length > 3 && (
-                              <span className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">
+                              <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded-full">
                                 +{technologies.length - 3}
                               </span>
                             )}
@@ -336,7 +330,16 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                         <div className="flex gap-2">
                           <Button 
                             variant="outline" 
-                            className={`flex-grow border-${color}-200 ${colors.cardText} hover:bg-${color}-600 hover:text-white hover:border-${color}-600 group transition-all duration-300`}
+                            className={cn(
+                              "flex-grow group transition-all duration-300",
+                              color === 'blue' ? "border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-700 hover:text-white hover:border-blue-600 dark:hover:border-blue-700" : "",
+                              color === 'indigo' ? "border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 dark:hover:bg-indigo-700 hover:text-white hover:border-indigo-600 dark:hover:border-indigo-700" : "",
+                              color === 'purple' ? "border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-600 dark:hover:bg-purple-700 hover:text-white hover:border-purple-600 dark:hover:border-purple-700" : "",
+                              color === 'rose' ? "border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 hover:bg-rose-600 dark:hover:bg-rose-700 hover:text-white hover:border-rose-600 dark:hover:border-rose-700" : "",
+                              color === 'amber' ? "border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-600 dark:hover:bg-amber-700 hover:text-white hover:border-amber-600 dark:hover:border-amber-700" : "",
+                              color === 'emerald' ? "border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-600 dark:hover:bg-emerald-700 hover:text-white hover:border-emerald-600 dark:hover:border-emerald-700" : "",
+                              color === 'teal' ? "border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-400 hover:bg-teal-600 dark:hover:bg-teal-700 hover:text-white hover:border-teal-600 dark:hover:border-teal-700" : ""
+                            )}
                             asChild
                           >
                             <Link href={`/portfolio/${portfolio.slug}`} className="flex items-center justify-center">
@@ -348,7 +351,16 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
                           {portfolio.demoUrl && (
                             <Button 
                               variant="outline" 
-                              className={`border-${color}-200 ${colors.cardText} hover:bg-${color}-600 hover:text-white hover:border-${color}-600 transition-all duration-300`}
+                              className={cn(
+                                "transition-all duration-300",
+                                color === 'blue' ? "border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-700 hover:text-white hover:border-blue-600 dark:hover:border-blue-700" : "",
+                                color === 'indigo' ? "border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 dark:hover:bg-indigo-700 hover:text-white hover:border-indigo-600 dark:hover:border-indigo-700" : "",
+                                color === 'purple' ? "border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-600 dark:hover:bg-purple-700 hover:text-white hover:border-purple-600 dark:hover:border-purple-700" : "",
+                                color === 'rose' ? "border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 hover:bg-rose-600 dark:hover:bg-rose-700 hover:text-white hover:border-rose-600 dark:hover:border-rose-700" : "",
+                                color === 'amber' ? "border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-600 dark:hover:bg-amber-700 hover:text-white hover:border-amber-600 dark:hover:border-amber-700" : "",
+                                color === 'emerald' ? "border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-600 dark:hover:bg-emerald-700 hover:text-white hover:border-emerald-600 dark:hover:border-emerald-700" : "",
+                                color === 'teal' ? "border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-400 hover:bg-teal-600 dark:hover:bg-teal-700 hover:text-white hover:border-teal-600 dark:hover:border-teal-700" : ""
+                              )}
                               asChild
                             >
                               <a 
@@ -373,7 +385,7 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
       </div>
       
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-16 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-800 dark:to-indigo-900 py-16 relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-white"></div>
@@ -394,7 +406,7 @@ export default function PortfolioPageClient({ portfolios }: PortfolioPageClientP
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white text-blue-600 dark:text-blue-700 hover:bg-blue-50 dark:hover:bg-slate-100 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 asChild
               >
                 <Link href="/contact">
