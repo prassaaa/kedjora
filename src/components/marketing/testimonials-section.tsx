@@ -245,7 +245,7 @@ export default function TestimonialsSection() {
         <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
           <Button 
             variant="outline" 
-            className="border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-700 hover:text-white group transition-all duration-300 px-6 py-3 text-base shadow hover:shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             asChild
           >
             <Link href="/testimonials" className="flex items-center">

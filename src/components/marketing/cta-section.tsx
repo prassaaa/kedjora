@@ -13,7 +13,7 @@ export default function CTASection() {
           <Button size="lg" variant="default" className="bg-white text-blue-600 hover:bg-blue-50 dark:bg-white dark:text-blue-700 dark:hover:bg-blue-50" asChild>
             <Link href="/contact">Hubungi Kami</Link>
           </Button>
-          <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 dark:hover:bg-blue-800" asChild>
+          <Button size="lg" variant="outline" className="border-white text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-800" asChild>
             <Link href="/services">Lihat Layanan</Link>
           </Button>
         </div>

@@ -30,10 +30,14 @@ export default function Hero() {
               Layanan pembuatan website, aplikasi, joki tugas kuliah, sempro, dan skripsi dengan kualitas terbaik dan harga terjangkau.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button size="lg" className="dark:bg-blue-600 dark:hover:bg-blue-700" asChild>
-                <Link href="/contact">
-                  Konsultasi Gratis
-                </Link>
+              <Button
+              size="lg"
+              className="dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white"
+              asChild
+              >
+              <Link href="/contact" className="dark:text-white">
+                Konsultasi Gratis
+              </Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-white text-slate-900 border-white hover:bg-slate-100 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700" asChild>
                 <Link href="/services" className="flex items-center">

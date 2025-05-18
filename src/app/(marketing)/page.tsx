@@ -59,18 +59,18 @@ export default async function HomePage() {
       <FeaturesSection />
       
       {/* Featured Portfolio Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 opacity-0 animate-fade-in">
-            <h2 className="text-4xl font-bold text-slate-900 mb-3">Portfolio Terbaru</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
-            <p className="text-lg text-slate-600">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">Portfolio Terbaru</h2>
+            <div className="w-20 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mb-6 rounded-full"></div>
+            <p className="text-lg text-slate-600 dark:text-slate-300">
               Beberapa proyek terbaik yang telah kami kerjakan
             </p>
           </div>
           
           {featuredPortfolio.length === 0 ? (
-            <div className="text-center py-16 text-slate-500 bg-slate-100 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '300ms' }}>
+            <div className="text-center py-16 text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-0 animate-fade-in" style={{ animationDelay: '300ms' }}>
               <p className="text-lg">Portfolio sedang dalam tahap pengembangan.</p>
               <p className="mt-2">Silakan kunjungi kembali nanti.</p>
             </div>
@@ -88,13 +88,13 @@ export default async function HomePage() {
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-lg hover:border-blue-200 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 opacity-0 animate-fade-up"
+                    className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg hover:border-blue-200 dark:hover:border-blue-700 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 opacity-0 animate-fade-up"
                     style={{ animationDelay: `${delay}ms` }}
                   >
                     <div className="relative overflow-hidden group">
                       {imageUrls[0] ? (
                         <>
-                          <div className="aspect-w-16 aspect-h-9 bg-slate-200 overflow-hidden">
+                          <div className="aspect-w-16 aspect-h-9 bg-slate-200 dark:bg-slate-700 overflow-hidden">
                             <Image 
                               src={imageUrls[0]} 
                               alt={item.title} 
@@ -106,29 +106,29 @@ export default async function HomePage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </>
                       ) : (
-                        <div className="w-full h-48 flex items-center justify-center bg-slate-200 text-slate-600">
+                        <div className="w-full h-48 flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400">
                           <span className="text-lg font-medium">No Image</span>
                         </div>
                       )}
                       <div className="absolute top-3 left-3">
-                        <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full shadow-md">
+                        <span className="px-3 py-1 bg-blue-600 dark:bg-blue-700 text-white text-xs font-bold rounded-full shadow-md">
                           {item.serviceType}
                         </span>
                       </div>
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                      <p className="text-slate-600 mb-4 line-clamp-2">{item.description}</p>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                      <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">{item.description}</p>
                       
                       {technologies.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-5">
                           {technologies.slice(0, 3).map((tech, idx) => (
-                            <span key={idx} className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">
+                            <span key={idx} className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded-full">
                               {tech}
                             </span>
                           ))}
                           {technologies.length > 3 && (
-                            <span className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">
+                            <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded-full">
                               +{technologies.length - 3}
                             </span>
                           )}
@@ -137,7 +137,7 @@ export default async function HomePage() {
                       
                       <Button 
                         variant="outline" 
-                        className="w-full border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 group transition-all duration-300"
+                        className="w-full border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-700 hover:text-white hover:border-blue-600 dark:hover:border-blue-700 group transition-all duration-300"
                         asChild
                       >
                         <Link href={`/portfolio/${item.slug}`} className="flex items-center justify-center">
@@ -155,7 +155,7 @@ export default async function HomePage() {
           <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
             <Button 
               size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               asChild
             >
               <Link href="/portfolio" className="flex items-center">

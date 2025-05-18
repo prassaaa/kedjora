@@ -387,7 +387,7 @@ export default function AboutPageClient({ aboutContent }: { aboutContent?: PageC
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="bg-white text-blue-700 hover:bg-blue-50 dark:hover:bg-slate-100 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white text-blue-700 hover:bg-blue-50 dark:bg-slate-200 dark:text-blue-800 dark:hover:bg-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 asChild
               >
                 <Link href="/contact" className="flex items-center">

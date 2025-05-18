@@ -524,7 +524,7 @@ export default function ContactPage() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button 
                 size="lg" 
-                className="bg-white text-blue-700 hover:bg-blue-50 dark:hover:bg-slate-100 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white text-blue-700 hover:bg-blue-50 dark:bg-slate-200 dark:text-blue-800 dark:hover:bg-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 asChild
               >
                 <a href={`mailto:${contactInfo.email}`} className="flex items-center">
