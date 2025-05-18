@@ -244,13 +244,13 @@ export default function TestimonialsSection() {
         
         <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '600ms' }}>
           <Button 
-            variant="outline" 
-            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            variant="default" 
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
             asChild
           >
             <Link href="/testimonials" className="flex items-center">
               <span>Lihat Semua Testimonial</span>
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-4 w-4 text-white dark:text-white transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>

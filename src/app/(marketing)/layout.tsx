@@ -23,7 +23,7 @@ const CursorEffect = () => {
   }, []);
   
   return (
-    <div id="cursor-fx" className="fixed w-5 h-5 rounded-full bg-blue-600 opacity-70 pointer-events-none z-50 hidden md:block" />
+    <div id="cursor-fx" className="fixed w-5 h-5 rounded-full bg-blue-600 dark:bg-blue-500 opacity-70 pointer-events-none z-50 hidden md:block" />
   );
 };
 
@@ -78,13 +78,13 @@ export default function MarketingLayout({
           {isLoading ? (
             <motion.div
               key="loader"
-              className="fixed inset-0 z-50 flex items-center justify-center bg-white"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-slate-900"
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="w-16 h-16 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div>
+              <div className="w-16 h-16 border-4 border-slate-200 dark:border-slate-700 border-t-blue-600 dark:border-t-blue-500 rounded-full animate-spin"></div>
             </motion.div>
           ) : (
             <motion.div
@@ -100,7 +100,16 @@ export default function MarketingLayout({
         </AnimatePresence>
       </main>
       <Footer />
-      <Toaster position="top-right" />
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          className: 'dark:bg-slate-800 dark:text-white',
+          style: {
+            background: 'var(--background)',
+            color: 'var(--foreground)',
+          },
+        }} 
+      />
       
       {/* Komponen cursor effect terpisah */}
       <CursorEffect />
@@ -108,7 +117,7 @@ export default function MarketingLayout({
       {/* Scroll to top button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 z-40 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110"
+        className="fixed bottom-8 right-8 z-40 bg-blue-600 dark:bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 hover:scale-110"
         aria-label="Scroll to top"
       >
         <svg

@@ -243,12 +243,12 @@ export default async function TestimonialsPage() {
             <div className="mt-8 opacity-0 animate-fade-in" style={{ animationDelay: '1100ms' }}>
               <Button 
                 size="lg" 
-                className="bg-white text-blue-600 dark:text-blue-700 hover:bg-blue-50 dark:hover:bg-slate-100 px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white text-blue-600 hover:bg-blue-50 dark:bg-slate-200 dark:text-blue-800 dark:hover:bg-white px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 asChild
               >
                 <Link href="/contact" className="flex items-center">
                   Konsultasi Gratis
-                  <ArrowRight className="ml-2 h-5 w-5 animate-pulse" />
+                  <ArrowRight className="ml-2 h-5 w-5 animate-pulse dark:text-blue-800" />
                 </Link>
               </Button>
             </div>
