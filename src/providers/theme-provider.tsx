@@ -1,19 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { ThemeProvider as NextThemesProvider, type ThemeProviderProps as NextThemesProviderProps } from "next-themes";
-import { useTheme } from "next-themes";
+import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import type { ThemeProviderProps as NextThemeProviderProps } from "next-themes";
 
-type ThemeProviderProps = {
+export interface ThemeProviderProps {
   children: React.ReactNode;
-  attribute?: NextThemesProviderProps['attribute'];
+  attribute?: NextThemeProviderProps["attribute"];
   defaultTheme?: string;
   enableSystem?: boolean;
   disableTransitionOnChange?: boolean;
   storageKey?: string;
-};
+  forcedTheme?: string;
+}
 
-// Re-export next-themes components
 export function ThemeProvider({
   children,
   attribute = "class",
@@ -21,17 +21,17 @@ export function ThemeProvider({
   enableSystem = true,
   disableTransitionOnChange = false,
   storageKey = "theme",
+  forcedTheme,
 }: ThemeProviderProps) {
-  // Handle hydration issue
   const [mounted, setMounted] = React.useState(false);
 
-  // After mounting, we can safely show the UI
+  // Setelah komponen di-mount, kita bisa menampilkan UI
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Render anak-anak saja saat pertama kali server-side render
   if (!mounted) {
-    // Returns a placeholder with the same structure
     return <>{children}</>;
   }
 
@@ -42,15 +42,15 @@ export function ThemeProvider({
       enableSystem={enableSystem}
       disableTransitionOnChange={disableTransitionOnChange}
       storageKey={storageKey}
+      forcedTheme={forcedTheme}
     >
       {children}
     </NextThemesProvider>
   );
 }
 
-// Custom hook for accessing and toggling the theme
 export function useThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
   
   const toggleTheme = React.useCallback(() => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -62,6 +62,9 @@ export function useThemeToggle() {
 
   return {
     theme,
+    setTheme,
+    resolvedTheme,
+    systemTheme,
     isDarkMode,
     toggleTheme,
   };

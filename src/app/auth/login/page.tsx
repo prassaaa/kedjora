@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -9,21 +9,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 
-const formSchema = z.object({
-  email: z.string().email("Email tidak valid"),
-  password: z.string().min(1, "Password harus diisi"),
-});
+// Buat komponen terpisah yang mengimpor useSearchParams
+import { useSearchParams } from "next/navigation";
 
-type FormData = z.infer<typeof formSchema>;
-
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
-  const callbackUrl = searchParams.get('callbackUrl') || '/admin';
+  const callbackUrl = searchParams?.get('callbackUrl') || '/admin';
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const formSchema = z.object({
+    email: z.string().email("Email tidak valid"),
+    password: z.string().min(1, "Password harus diisi"),
+  });
+
+  type FormData = z.infer<typeof formSchema>;
 
   // Redirect jika sudah login
   useEffect(() => {
@@ -196,5 +199,18 @@ export default function LoginPage() {
         </motion.div>
       </motion.div>
     </div>
+  );
+}
+
+// Halaman utama yang membungkus form login dalam Suspense
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100">
+        <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

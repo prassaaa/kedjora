@@ -2,20 +2,26 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { Prisma } from '@prisma/client';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const section = searchParams.get('section');
     
-    const query = section ? { where: { section } } : {};
-    
-    const settings = await prisma.pageContent.findMany({
-      ...query,
+    // Buat parameter query dengan cara yang type-safe
+    const queryOptions: Prisma.PageContentFindManyArgs = {
       orderBy: {
         section: 'asc',
-      },
-    });
+      }
+    };
+    
+    // Tambahkan kondisi where hanya jika section ada
+    if (section) {
+      queryOptions.where = { section };
+    }
+    
+    const settings = await prisma.pageContent.findMany(queryOptions);
     
     return NextResponse.json(settings);
   } catch (error) {
