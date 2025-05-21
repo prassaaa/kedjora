@@ -79,7 +79,7 @@ export default function DeleteServicePage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600 dark:text-blue-400" />
       </div>
     );
   }
@@ -87,10 +87,10 @@ export default function DeleteServicePage() {
   if (!service) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-slate-900">Layanan tidak ditemukan</h2>
-        <p className="mt-2 text-slate-600">Layanan yang Anda cari tidak ditemukan atau telah dihapus.</p>
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Layanan tidak ditemukan</h2>
+        <p className="mt-2 text-slate-600 dark:text-slate-400">Layanan yang Anda cari tidak ditemukan atau telah dihapus.</p>
         <Button 
-          className="mt-4"
+          className="mt-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
           onClick={() => router.push('/admin/services')}
         >
           Kembali ke Daftar Layanan
@@ -102,18 +102,18 @@ export default function DeleteServicePage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Hapus Layanan</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Hapus Layanan</h1>
       </div>
       
-      <div className="border rounded-lg p-6">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800">
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-slate-900">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
             Apakah Anda yakin ingin menghapus layanan ini?
           </h2>
-          <p className="text-slate-600">
-            Anda akan menghapus layanan: <span className="font-medium">{service.title}</span>
+          <p className="text-slate-600 dark:text-slate-300">
+            Anda akan menghapus layanan: <span className="font-medium text-slate-900 dark:text-white">{service.title}</span>
           </p>
-          <p className="text-red-600 text-sm">
+          <p className="text-red-600 dark:text-red-400 text-sm">
             Tindakan ini tidak dapat dibatalkan. Semua data terkait layanan ini akan dihapus secara permanen.
           </p>
           
@@ -122,6 +122,7 @@ export default function DeleteServicePage() {
               type="button"
               variant="outline"
               onClick={() => router.push('/admin/services')}
+              className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
             >
               Batal
             </Button>
@@ -130,6 +131,7 @@ export default function DeleteServicePage() {
               variant="destructive"
               onClick={handleDelete}
               disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white border-none"
             >
               {isDeleting ? (
                 <>

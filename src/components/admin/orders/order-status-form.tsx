@@ -92,22 +92,22 @@ export default function OrderStatusForm({ order }: OrderStatusFormProps) {
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'PENDING':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
       case 'IN_PROGRESS':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
       case 'COMPLETED':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
       case 'CANCELLED':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-slate-100 text-slate-800';
+        return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300';
     }
   };
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-medium text-slate-500">Status Saat Ini</div>
+        <div className="text-sm font-medium text-slate-500 dark:text-slate-400">Status Saat Ini</div>
         <div 
           className={`px-2 py-1 rounded-full text-xs font-medium ${
             getStatusBadgeClass(order.status)
@@ -127,24 +127,24 @@ export default function OrderStatusForm({ order }: OrderStatusFormProps) {
             name="status"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Update Status</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Update Status</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200">
                       <SelectValue placeholder="Pilih status" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="PENDING">Pending</SelectItem>
-                    <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                    <SelectItem value="COMPLETED">Completed</SelectItem>
-                    <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                  <SelectContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                    <SelectItem value="PENDING" className="text-slate-900 dark:text-slate-200">Pending</SelectItem>
+                    <SelectItem value="IN_PROGRESS" className="text-slate-900 dark:text-slate-200">In Progress</SelectItem>
+                    <SelectItem value="COMPLETED" className="text-slate-900 dark:text-slate-200">Completed</SelectItem>
+                    <SelectItem value="CANCELLED" className="text-slate-900 dark:text-slate-200">Cancelled</SelectItem>
                   </SelectContent>
                 </Select>
-                <FormMessage />
+                <FormMessage className="text-red-500 dark:text-red-400" />
               </FormItem>
             )}
           />
@@ -152,7 +152,7 @@ export default function OrderStatusForm({ order }: OrderStatusFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full"
+            className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
           >
             {isSubmitting ? (
               <>

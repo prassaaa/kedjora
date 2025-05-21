@@ -37,7 +37,7 @@ export default function AdminSidebar() {
 
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col">
-      <div className="flex flex-col flex-grow pt-5 overflow-y-auto border-r bg-slate-900">
+      <div className="flex flex-col flex-grow pt-5 overflow-y-auto border-r bg-slate-900 dark:bg-slate-950 border-slate-800 dark:border-slate-900">
         <div className="flex items-center flex-shrink-0 px-4">
           <Link href="/admin" className="flex items-center">
             <h1 className="text-xl font-bold text-white">Admin Panel</h1>
@@ -55,8 +55,8 @@ export default function AdminSidebar() {
                   className={cn(
                     "flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors",
                     isActive
-                      ? "bg-slate-800 text-white"
-                      : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                      ? "bg-slate-800 dark:bg-slate-800/70 text-white"
+                      : "text-slate-300 dark:text-slate-400 hover:bg-slate-800 dark:hover:bg-slate-800/70 hover:text-white"
                   )}
                 >
                   <item.icon className="w-5 h-5 mr-3" />
@@ -67,7 +67,7 @@ export default function AdminSidebar() {
           </nav>
           <div className="mt-auto pb-5">
             <button 
-              className="flex items-center w-full px-4 py-2 mt-5 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-white transition-colors"
+              className="flex items-center w-full px-4 py-2 mt-5 text-sm font-medium text-slate-300 dark:text-slate-400 rounded-md hover:bg-slate-800 dark:hover:bg-slate-800/70 hover:text-white transition-colors"
               onClick={handleLogout}
             >
               <LogOut className="w-5 h-5 mr-3" />

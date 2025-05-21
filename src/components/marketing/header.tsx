@@ -21,10 +21,10 @@ const navigation = [
 
 // Dropdown contents for the Services menu
 const servicesDropdown = [
-  { name: "Web Development", href: "/services/web-development", icon: "🌐" },
-  { name: "App Development", href: "/services/app-development", icon: "📱" },
-  { name: "Academic Assistance", href: "/services/academic-assistance", icon: "🎓" },
-  { name: "Thesis Writing", href: "/services/thesis", icon: "📝" },
+  { name: "Pembuatan Website", href: "/services/web-development", icon: "🌐" },
+  { name: "Pembuatan Aplikasi", href: "/services/app-development", icon: "📱" },
+  { name: "Tugas Kuliah", href: "/services/academic-assistance", icon: "🎓" },
+  { name: "Skripsi / Sempro", href: "/services/thesis", icon: "📝" },
 ];
 
 export default function Header() {

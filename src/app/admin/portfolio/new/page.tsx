@@ -164,10 +164,10 @@ export default function NewPortfolioPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Tambah Portfolio Baru</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Tambah Portfolio Baru</h1>
       </div>
       
-      <div className="border rounded-lg p-6">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -176,7 +176,7 @@ export default function NewPortfolioPage() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Judul Portfolio</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Judul Portfolio</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: Website E-commerce"
@@ -185,9 +185,10 @@ export default function NewPortfolioPage() {
                           field.onChange(e);
                           generateSlug(e.target.value);
                         }}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -197,14 +198,15 @@ export default function NewPortfolioPage() {
                 name="slug"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Slug (URL)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Slug (URL)</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: website-ecommerce"
                         {...field}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -215,15 +217,15 @@ export default function NewPortfolioPage() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Deskripsi</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-slate-200">Deskripsi</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Deskripsi portfolio..."
-                      className="min-h-[120px]"
+                      className="min-h-[120px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 dark:text-red-400" />
                 </FormItem>
               )}
             />
@@ -234,15 +236,16 @@ export default function NewPortfolioPage() {
                 name="clientName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nama Klien (opsional)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Nama Klien (opsional)</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Nama klien atau perusahaan"
                         {...field}
                         value={field.value || ''}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -252,14 +255,15 @@ export default function NewPortfolioPage() {
                 name="serviceType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Kategori Layanan</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Kategori Layanan</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: Website, Mobile App, UI/UX Design"
                         {...field}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -267,12 +271,13 @@ export default function NewPortfolioPage() {
             
             <div>
               <div className="flex items-center justify-between mb-2">
-                <FormLabel>URL Gambar</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">URL Gambar</FormLabel>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={addImageUrl}
+                  className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Tambah URL Gambar
@@ -285,6 +290,7 @@ export default function NewPortfolioPage() {
                       value={url}
                       onChange={(e) => updateImageUrl(index, e.target.value)}
                       placeholder="https://example.com/image.jpg"
+                      className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                     />
                     <Button
                       type="button"
@@ -292,6 +298,7 @@ export default function NewPortfolioPage() {
                       size="icon"
                       onClick={() => removeImageUrl(index)}
                       disabled={imageUrls.length === 1}
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Remove</span>
@@ -303,12 +310,13 @@ export default function NewPortfolioPage() {
             
             <div>
               <div className="flex items-center justify-between mb-2">
-                <FormLabel>Teknologi</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Teknologi</FormLabel>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={addTechnology}
+                  className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Tambah Teknologi
@@ -321,6 +329,7 @@ export default function NewPortfolioPage() {
                       value={tech}
                       onChange={(e) => updateTechnology(index, e.target.value)}
                       placeholder="Contoh: React, Node.js, MySQL"
+                      className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                     />
                     <Button
                       type="button"
@@ -328,6 +337,7 @@ export default function NewPortfolioPage() {
                       size="icon"
                       onClick={() => removeTechnology(index)}
                       disabled={technologies.length === 1}
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Remove</span>
@@ -342,15 +352,16 @@ export default function NewPortfolioPage() {
               name="demoUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Demo (opsional)</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-slate-200">URL Demo (opsional)</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="https://example.com"
                       {...field}
                       value={field.value || ''}
+                      className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 dark:text-red-400" />
                 </FormItem>
               )}
             />
@@ -359,10 +370,10 @@ export default function NewPortfolioPage() {
               control={form.control}
               name="featured"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                <FormItem className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-800/50">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-base">Portfolio Unggulan</FormLabel>
-                    <div className="text-sm text-slate-500">
+                    <FormLabel className="text-base text-slate-900 dark:text-slate-200">Portfolio Unggulan</FormLabel>
+                    <div className="text-sm text-slate-500 dark:text-slate-400">
                       Tandai sebagai portfolio unggulan di halaman utama
                     </div>
                   </div>
@@ -381,12 +392,14 @@ export default function NewPortfolioPage() {
                 type="button"
                 variant="outline"
                 onClick={() => router.push('/admin/portfolio')}
+                className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={isSubmitting}
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 {isSubmitting ? (
                   <>

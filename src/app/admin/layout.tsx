@@ -25,8 +25,8 @@ export default function AdminLayout({
 
   if (status === "loading") {
     return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+      <div className="flex h-screen w-full items-center justify-center bg-slate-50 dark:bg-slate-900">
+        <Loader2 className="h-10 w-10 animate-spin text-blue-600 dark:text-blue-400" />
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function AdminLayout({
         <AdminSidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
           <AdminHeader />
-          <main className="flex-1 overflow-y-auto p-6 bg-slate-50">
+          <main className="flex-1 overflow-y-auto p-6 bg-slate-50 dark:bg-slate-900">
             {children}
           </main>
         </div>

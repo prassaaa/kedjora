@@ -177,7 +177,7 @@ export default function EditServicePage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600 dark:text-blue-400" />
       </div>
     );
   }
@@ -185,10 +185,10 @@ export default function EditServicePage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Edit Layanan</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Edit Layanan</h1>
       </div>
       
-      <div className="border rounded-lg p-6">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -197,11 +197,14 @@ export default function EditServicePage() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Judul Layanan</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Judul Layanan</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input 
+                        {...field} 
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -211,11 +214,14 @@ export default function EditServicePage() {
                 name="slug"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Slug (URL)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Slug (URL)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input 
+                        {...field} 
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -226,26 +232,27 @@ export default function EditServicePage() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Deskripsi</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-slate-200">Deskripsi</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="min-h-[120px]"
+                      className="min-h-[120px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
             
             <div>
               <div className="flex items-center justify-between mb-2">
-                <FormLabel>Fitur-fitur</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Fitur-fitur</FormLabel>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={addFeature}
+                  className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Tambah Fitur
@@ -258,6 +265,7 @@ export default function EditServicePage() {
                       value={feature}
                       onChange={(e) => updateFeature(index, e.target.value)}
                       placeholder={`Fitur ${index + 1}`}
+                      className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
                     />
                     <Button
                       type="button"
@@ -265,6 +273,7 @@ export default function EditServicePage() {
                       size="icon"
                       onClick={() => removeFeature(index)}
                       disabled={features.length === 1}
+                      className="text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Remove</span>
@@ -280,11 +289,14 @@ export default function EditServicePage() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Harga (opsional)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Harga (opsional)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input 
+                        {...field} 
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -294,11 +306,14 @@ export default function EditServicePage() {
                 name="imageUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL Gambar (opsional)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">URL Gambar (opsional)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input 
+                        {...field} 
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -309,10 +324,10 @@ export default function EditServicePage() {
                 control={form.control}
                 name="isPopular"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-800">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Layanan Populer</FormLabel>
-                      <div className="text-sm text-slate-500">
+                      <FormLabel className="text-base text-slate-900 dark:text-white">Layanan Populer</FormLabel>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">
                         Tandai sebagai layanan populer di halaman utama
                       </div>
                     </div>
@@ -330,10 +345,10 @@ export default function EditServicePage() {
                 control={form.control}
                 name="isActive"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-800">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Status</FormLabel>
-                      <div className="text-sm text-slate-500">
+                      <FormLabel className="text-base text-slate-900 dark:text-white">Status</FormLabel>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">
                         Aktifkan layanan agar muncul di website
                       </div>
                     </div>
@@ -353,12 +368,14 @@ export default function EditServicePage() {
                 type="button"
                 variant="outline"
                 onClick={() => router.push('/admin/services')}
+                className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={isSubmitting}
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 {isSubmitting ? (
                   <>

@@ -78,11 +78,14 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Alamat</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Alamat</FormLabel>
               <FormControl>
-                <Textarea className="min-h-[100px]" {...field} />
+                <Textarea 
+                  className="min-h-[100px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                  {...field} 
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -93,11 +96,15 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} />
+                  <Input 
+                    type="email" 
+                    {...field} 
+                    className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
@@ -107,11 +114,14 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nomor Telepon</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Nomor Telepon</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input 
+                    {...field} 
+                    className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
@@ -122,12 +132,16 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
           name="mapUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL Peta Embed (opsional)</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">URL Peta Embed (opsional)</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value || ''} />
+                <Input 
+                  {...field} 
+                  value={field.value || ''} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
-              <p className="text-sm text-slate-500 mt-1">
+              <FormMessage className="text-red-500" />
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                 URL iframe Google Maps (contoh: https://www.google.com/maps/embed?pb=...)
               </p>
             </FormItem>
@@ -135,7 +149,11 @@ export default function ContactSettingsForm({ initialData, onSave }: ContactSett
         />
         
         <div className="flex justify-end">
-          <Button type="submit" disabled={isSubmitting}>
+          <Button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -69,11 +69,14 @@ export default function HomeSettingsForm({ initialData, onSave }: HomeSettingsFo
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Judul Hero Section</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Judul Hero Section</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input 
+                  {...field} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -83,11 +86,14 @@ export default function HomeSettingsForm({ initialData, onSave }: HomeSettingsFo
           name="subtitle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subjudul Hero Section</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Subjudul Hero Section</FormLabel>
               <FormControl>
-                <Textarea className="min-h-[100px]" {...field} />
+                <Textarea 
+                  className="min-h-[100px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                  {...field} 
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -98,11 +104,15 @@ export default function HomeSettingsForm({ initialData, onSave }: HomeSettingsFo
             name="buttonText"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Teks Button</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Teks Button</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ''} />
+                  <Input 
+                    {...field} 
+                    value={field.value || ''} 
+                    className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
@@ -112,11 +122,15 @@ export default function HomeSettingsForm({ initialData, onSave }: HomeSettingsFo
             name="buttonLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Link Button</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Link Button</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ''} />
+                  <Input 
+                    {...field} 
+                    value={field.value || ''} 
+                    className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                  />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
@@ -127,17 +141,25 @@ export default function HomeSettingsForm({ initialData, onSave }: HomeSettingsFo
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL Gambar (opsional)</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">URL Gambar (opsional)</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value || ''} />
+                <Input 
+                  {...field} 
+                  value={field.value || ''} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
         
         <div className="flex justify-end">
-          <Button type="submit" disabled={isSubmitting}>
+          <Button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

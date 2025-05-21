@@ -8,8 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-
-// Buat komponen terpisah yang mengimpor useSearchParams
+import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
@@ -81,12 +80,12 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-8"
+        className="w-full max-w-md bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-xl shadow-xl p-8 border border-slate-200 dark:border-slate-700"
       >
         <motion.div 
           initial={{ scale: 0.8 }}
@@ -94,10 +93,10 @@ function LoginForm() {
           transition={{ duration: 0.3 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-slate-900 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-slate-900 dark:from-blue-400 dark:to-slate-200 bg-clip-text text-transparent">
             Admin Panel
           </h1>
-          <p className="text-slate-500 mt-2">Masuk ke dashboard admin</p>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Masuk ke dashboard admin</p>
         </motion.div>
 
         <AnimatePresence>
@@ -106,7 +105,7 @@ function LoginForm() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm"
+              className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-sm"
             >
               {error}
             </motion.div>
@@ -120,18 +119,18 @@ function LoginForm() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 {...form.register("email")}
-                className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white/50"
+                className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200 bg-white/50 dark:bg-slate-800/50 dark:text-white"
                 placeholder="admin@example.com"
               />
               {form.formState.errors.email && (
-                <p className="mt-1 text-sm text-red-600">{form.formState.errors.email.message}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.email.message}</p>
               )}
             </motion.div>
 
@@ -140,7 +139,7 @@ function LoginForm() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Password
               </label>
               <div className="relative">
@@ -148,19 +147,19 @@ function LoginForm() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   {...form.register("password")}
-                  className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-white/50"
+                  className="mt-1 block w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200 bg-white/50 dark:bg-slate-800/50 dark:text-white"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               {form.formState.errors.password && (
-                <p className="mt-1 text-sm text-red-600">{form.formState.errors.password.message}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.password.message}</p>
               )}
             </motion.div>
           </div>
@@ -170,10 +169,10 @@ function LoginForm() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50 transition-all duration-200"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-lg bg-blue-600 dark:bg-blue-700 text-white font-medium hover:bg-blue-700 dark:hover:bg-blue-600 disabled:opacity-50 transition-all duration-200"
             >
               {isSubmitting ? (
                 <>
@@ -183,7 +182,7 @@ function LoginForm() {
               ) : (
                 "Masuk"
               )}
-            </button>
+            </Button>
           </motion.div>
         </form>
 
@@ -191,9 +190,9 @@ function LoginForm() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mt-6 text-center text-sm text-slate-500"
+          className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400"
         >
-          <a href="/" className="text-blue-600 hover:text-blue-800 font-medium">
+          <a href="/" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
             Kembali ke Beranda
           </a>
         </motion.div>
@@ -206,8 +205,8 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100">
-        <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        <Loader2 className="h-10 w-10 animate-spin text-blue-600 dark:text-blue-400" />
       </div>
     }>
       <LoginForm />

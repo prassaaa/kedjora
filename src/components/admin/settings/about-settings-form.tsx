@@ -67,11 +67,14 @@ export default function AboutSettingsForm({ initialData, onSave }: AboutSettings
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Judul Halaman</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Judul Halaman</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input 
+                  {...field} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -81,11 +84,14 @@ export default function AboutSettingsForm({ initialData, onSave }: AboutSettings
           name="subtitle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subjudul</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Subjudul</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input 
+                  {...field} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -95,11 +101,14 @@ export default function AboutSettingsForm({ initialData, onSave }: AboutSettings
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Konten Utama</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">Konten Utama</FormLabel>
               <FormControl>
-                <Textarea className="min-h-[200px]" {...field} />
+                <Textarea 
+                  className="min-h-[200px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200" 
+                  {...field} 
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -109,17 +118,25 @@ export default function AboutSettingsForm({ initialData, onSave }: AboutSettings
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL Gambar (opsional)</FormLabel>
+              <FormLabel className="text-slate-900 dark:text-slate-200">URL Gambar (opsional)</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value || ''} />
+                <Input 
+                  {...field} 
+                  value={field.value || ''} 
+                  className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
         
         <div className="flex justify-end">
-          <Button type="submit" disabled={isSubmitting}>
+          <Button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -133,10 +133,10 @@ export default function NewServicePage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Tambah Layanan Baru</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Tambah Layanan Baru</h1>
       </div>
       
-      <div className="border rounded-lg p-6">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -145,7 +145,7 @@ export default function NewServicePage() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Judul Layanan</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Judul Layanan</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: Pembuatan Website"
@@ -154,9 +154,10 @@ export default function NewServicePage() {
                           field.onChange(e);
                           generateSlug(e.target.value);
                         }}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -166,14 +167,15 @@ export default function NewServicePage() {
                 name="slug"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Slug (URL)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Slug (URL)</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: pembuatan-website"
                         {...field}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -184,27 +186,28 @@ export default function NewServicePage() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Deskripsi</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-slate-200">Deskripsi</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Deskripsi layanan..."
-                      className="min-h-[120px]"
+                      className="min-h-[120px] border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 dark:text-red-400" />
                 </FormItem>
               )}
             />
             
             <div>
               <div className="flex items-center justify-between mb-2">
-                <FormLabel>Fitur-fitur</FormLabel>
+                <FormLabel className="text-slate-900 dark:text-slate-200">Fitur-fitur</FormLabel>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={addFeature}
+                  className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                 >
                   <PlusCircle className="h-4 w-4 mr-2" />
                   Tambah Fitur
@@ -217,6 +220,7 @@ export default function NewServicePage() {
                       value={feature}
                       onChange={(e) => updateFeature(index, e.target.value)}
                       placeholder={`Fitur ${index + 1}`}
+                      className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                     />
                     <Button
                       type="button"
@@ -224,6 +228,7 @@ export default function NewServicePage() {
                       size="icon"
                       onClick={() => removeFeature(index)}
                       disabled={features.length === 1}
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Remove</span>
@@ -239,14 +244,15 @@ export default function NewServicePage() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Harga (opsional)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">Harga (opsional)</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Contoh: Mulai dari Rp 2 juta"
                         {...field}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -256,14 +262,15 @@ export default function NewServicePage() {
                 name="imageUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL Gambar (opsional)</FormLabel>
+                    <FormLabel className="text-slate-900 dark:text-slate-200">URL Gambar (opsional)</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="https://example.com/image.jpg"
                         {...field}
+                        className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-400" />
                   </FormItem>
                 )}
               />
@@ -274,10 +281,10 @@ export default function NewServicePage() {
                 control={form.control}
                 name="isPopular"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-800/50">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Layanan Populer</FormLabel>
-                      <div className="text-sm text-slate-500">
+                      <FormLabel className="text-base text-slate-900 dark:text-slate-200">Layanan Populer</FormLabel>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">
                         Tandai sebagai layanan populer di halaman utama
                       </div>
                     </div>
@@ -295,10 +302,10 @@ export default function NewServicePage() {
                 control={form.control}
                 name="isActive"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-800/50">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Status</FormLabel>
-                      <div className="text-sm text-slate-500">
+                      <FormLabel className="text-base text-slate-900 dark:text-slate-200">Status</FormLabel>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">
                         Aktifkan layanan agar muncul di website
                       </div>
                     </div>
@@ -318,12 +325,14 @@ export default function NewServicePage() {
                 type="button"
                 variant="outline"
                 onClick={() => router.push('/admin/services')}
+                className="border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={isSubmitting}
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white"
               >
                 {isSubmitting && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

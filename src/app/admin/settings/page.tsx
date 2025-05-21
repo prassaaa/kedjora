@@ -126,7 +126,7 @@ export default function SettingsPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600 dark:text-blue-400" />
       </div>
     );
   }
@@ -134,8 +134,8 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Pengaturan Website</h1>
-        <p className="text-slate-500 mt-1">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Pengaturan Website</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-1">
           Kelola konten dan pengaturan untuk berbagai halaman di website
         </p>
       </div>
@@ -150,8 +150,8 @@ export default function SettingsPage() {
         <TabsContent value="home" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Pengaturan Halaman Utama</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-slate-900 dark:text-white">Pengaturan Halaman Utama</CardTitle>
+              <CardDescription className="text-slate-500 dark:text-slate-400">
                 Kelola konten untuk halaman utama
               </CardDescription>
             </CardHeader>
@@ -173,8 +173,8 @@ export default function SettingsPage() {
         <TabsContent value="about" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Pengaturan Tentang Kami</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-slate-900 dark:text-white">Pengaturan Tentang Kami</CardTitle>
+              <CardDescription className="text-slate-500 dark:text-slate-400">
                 Kelola konten untuk halaman Tentang Kami
               </CardDescription>
             </CardHeader>
@@ -195,8 +195,8 @@ export default function SettingsPage() {
         <TabsContent value="contact" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Pengaturan Halaman Kontak</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-slate-900 dark:text-white">Pengaturan Halaman Kontak</CardTitle>
+              <CardDescription className="text-slate-500 dark:text-slate-400">
                 Kelola informasi kontak dan lokasi
               </CardDescription>
             </CardHeader>
@@ -217,13 +217,13 @@ export default function SettingsPage() {
         <TabsContent value="general" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Pengaturan Umum</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-slate-900 dark:text-white">Pengaturan Umum</CardTitle>
+              <CardDescription className="text-slate-500 dark:text-slate-400">
                 Kelola pengaturan umum seperti logo, favicon, dan SEO
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-slate-500">
+              <p className="text-slate-500 dark:text-slate-400">
                 Fitur pengaturan umum sedang dalam pengembangan.
               </p>
             </CardContent>
