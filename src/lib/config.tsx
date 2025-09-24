@@ -28,29 +28,30 @@ export const Highlight = ({
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "Cal AI",
-  description: "Smart scheduling powered by AI.",
-  cta: "Get Started",
+  name: "Kedjora",
+  description: "Solusi Digital Lengkap untuk Bisnis & Akademik Anda",
+  cta: "Konsultasi Gratis",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
-    "AI Calendar",
-    "Smart Scheduling",
-    "Productivity",
-    "Time Management",
+    "Jasa Website",
+    "Mobile App Development",
+    "Bot Automation",
+    "Jasa Akademik",
+    "Desain Grafis",
   ],
   links: {
-    email: "support@calai.app",
-    twitter: "https://twitter.com/calaiapp",
-    discord: "https://discord.gg/calaiapp",
-    github: "https://github.com/calaiapp",
-    instagram: "https://instagram.com/calaiapp",
+    email: "hello@kedjora.com",
+    whatsapp: "https://wa.me/6281234567890",
+    instagram: "https://instagram.com/kedjora.official",
+    telegram: "https://t.me/kedjora_support",
   },
   nav: {
     links: [
       { id: 1, name: "Home", href: "#hero" },
-      { id: 2, name: "How it Works", href: "#bento" },
-      { id: 3, name: "Features", href: "#features" },
-      { id: 4, name: "Pricing", href: "#pricing" },
+      { id: 2, name: "Layanan", href: "#bento" },
+      { id: 3, name: "Portfolio", href: "#portfolio" },
+      { id: 4, name: "Harga", href: "#pricing" },
+      { id: 5, name: "Testimoni", href: "#testimonials" },
     ],
   },
   hero: {
@@ -68,18 +69,18 @@ export const siteConfig = {
         <path d="M2.37845 10.5993L2.57045 10.4893L6.88445 12.9533C7.22435 13.1474 7.60901 13.2496 8.00045 13.2496C8.39189 13.2496 8.77656 13.1474 9.11645 12.9533L13.4305 10.4883L13.6225 10.5983C13.7374 10.6638 13.833 10.7586 13.8994 10.8731C13.9659 10.9875 14.0009 11.1175 14.0009 11.2498C14.0009 11.3821 13.9659 11.5121 13.8994 11.6265C13.833 11.7409 13.7374 11.8357 13.6225 11.9013L8.37245 14.9013C8.25915 14.966 8.13093 15 8.00045 15C7.86997 15 7.74175 14.966 7.62845 14.9013L2.37845 11.9013C2.2635 11.8357 2.16795 11.7409 2.10148 11.6265C2.03501 11.5121 2 11.3821 2 11.2498C2 11.1175 2.03501 10.9875 2.10148 10.8731C2.16795 10.7586 2.2635 10.6638 2.37845 10.5983V10.5993Z" />
       </svg>
     ),
-    badge: "Introducing custom automations",
-    title: "Meet your AI Agent Streamline your workflow",
+    badge: "Melayani Sejak 2024 - Trusted Digital Partner",
+    title: "Kedjora - Partner Digital Terpercaya Anda",
     description:
-      "AI assistant designed to streamline your digital workflows and handle mundane tasks, so you can focus on what truly matters",
+      "Dari website profesional hingga jasa akademik berkualitas, kami hadir untuk mewujudkan semua kebutuhan digital Anda dengan solusi terbaik dan harga terjangkau",
     cta: {
       primary: {
-        text: "Try for Free",
-        href: "#",
+        text: "Konsultasi Gratis",
+        href: "https://wa.me/6281234567890",
       },
       secondary: {
-        text: "Log in",
-        href: "#",
+        text: "Lihat Portfolio",
+        href: "#portfolio",
       },
     },
   },
@@ -87,7 +88,7 @@ export const siteConfig = {
     companyLogos: [
       {
         id: 1,
-        name: "Company 1",
+        name: "Toko Elektronik Maju",
         logo: (
           <svg
             width="110"
@@ -109,7 +110,7 @@ export const siteConfig = {
       },
       {
         id: 2,
-        name: "Company 2",
+        name: "CV. Maju Bersama",
         logo: (
           <svg
             width="113"
@@ -133,7 +134,7 @@ export const siteConfig = {
       },
       {
         id: 3,
-        name: "Company 3",
+        name: "Startup EduTech",
         logo: (
           <svg
             width="73"
@@ -153,7 +154,7 @@ export const siteConfig = {
       },
       {
         id: 4,
-        name: "Company 4",
+        name: "Batik Nusantara",
         logo: (
           <svg
             width="96"
@@ -169,7 +170,7 @@ export const siteConfig = {
       },
       {
         id: 5,
-        name: "Company 5",
+        name: "Warung Digital",
         logo: (
           <svg
             width="99"
@@ -285,62 +286,62 @@ export const siteConfig = {
     ],
   },
   featureSection: {
-    title: "Simple. Seamless. Smart.",
+    title: "Proses Kerja yang Mudah & Transparan",
     description:
-      "Discover how Kedjora transforms your commands into action in four easy steps",
+      "Dari konsultasi hingga delivery, kami pastikan setiap langkah jelas dan hasil memuaskan",
     items: [
       {
         id: 1,
-        title: "Ask Your AI Agent Directly",
+        title: "Konsultasi & Analisis Kebutuhan",
         content:
-          "Speak or type your command—let Kedjora capture your intent. Your request instantly sets the process in motion.",
+          "Diskusi mendalam untuk memahami kebutuhan spesifik Anda. Tim kami akan menganalisis dan memberikan solusi terbaik sesuai budget.",
         image:
-          "https://images.unsplash.com/photo-1720371300677-ba4838fa0678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
       },
       {
         id: 2,
-        title: "Let Kedjora Process It",
+        title: "Perencanaan & Design",
         content:
-          "We prioritize the needs and preferences of our users in our design process.",
+          "Membuat blueprint dan mockup detail sebelum development. Anda bisa review dan request revisi sebelum coding dimulai.",
         image:
-          "https://images.unsplash.com/photo-1686170287433-c95faf6d3608?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
       },
       {
         id: 3,
-        title: "Receive Instant, Actionable Results",
+        title: "Development & Testing",
         content:
-          "Our features seamlessly integrate with your existing systems for a smooth experience.",
+          "Proses development dengan update progress berkala. Quality assurance dan testing menyeluruh sebelum delivery.",
         image:
-          "https://images.unsplash.com/photo-1720378042271-60aff1e1c538?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
       },
       {
         id: 4,
-        title: "Continuous Improvement",
+        title: "Delivery & Support",
         content:
-          "We are constantly updating and improving our features to provide the best experience.",
+          "Serah terima project lengkap dengan dokumentasi. Garansi dan support berkelanjutan untuk memastikan kepuasan Anda.",
         image:
-          "https://images.unsplash.com/photo-1666882990322-e7f3b8df4f75?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D",
+          "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
       },
     ],
   },
   bentoSection: {
-    title: "Empower Your Workflow with AI",
+    title: "Layanan Digital Lengkap Kedjora",
     description:
-      "Ask your AI Agent for real-time collaboration, seamless integrations, and actionable insights to streamline your operations.",
+      "Solusi terpadu untuk semua kebutuhan digital Anda - dari pengembangan website hingga bantuan akademik profesional.",
     items: [
       {
         id: 1,
         content: <FirstBentoAnimation />,
-        title: "Real-time AI Collaboration",
+        title: "Website Development",
         description:
-          "Experience real-time assistance. Ask your AI Agent to coordinate tasks, answer questions, and maintain team alignment.",
+          "Buat website impian Anda dengan teknologi terdepan. Landing page, e-commerce, hingga sistem kompleks - semua bisa kami wujudkan.",
       },
       {
         id: 2,
         content: <SecondBentoAnimation />,
-        title: "Seamless Integrations",
+        title: "Mobile App Development",
         description:
-          "Unite your favorite tools for effortless connectivity. Boost productivity through interconnected workflows.",
+          "Aplikasi mobile yang user-friendly dan powerful untuk Android & iOS. Dari konsep hingga publish di Play Store & App Store.",
       },
       {
         id: 3,
@@ -352,16 +353,16 @@ export const siteConfig = {
             ]}
           />
         ),
-        title: "Instant Insight Reporting",
+        title: "Bot Automation",
         description:
-          "Transform raw data into clear insights in seconds. Empower smarter decisions with real-time, always-learning intelligence.",
+          "Otomatisasi bisnis dengan bot cerdas. WhatsApp bot, Telegram bot, chatbot website - tingkatkan efisiensi operasional Anda.",
       },
       {
         id: 4,
         content: <FourthBentoAnimation once={false} />,
-        title: "Smart Automation",
+        title: "Jasa Akademik",
         description:
-          "Set it, forget it. Your AI Agent tackles repetitive tasks so you can focus on strategy, innovation, and growth.",
+          "Bantuan tugas kuliah, sempro, hingga skripsi berkualitas. Tim ahli kami siap membantu kesuksesan akademik Anda.",
       },
     ],
   },
@@ -388,9 +389,9 @@ export const siteConfig = {
     },
   ],
   growthSection: {
-    title: "Built for Secure Growth",
+    title: "Mengapa Memilih Kedjora?",
     description:
-      "Where advanced security meets seamless scalability—designed to protect your data and empower your growth.",
+      "Keunggulan yang membuat Kedjora menjadi pilihan terbaik untuk semua kebutuhan digital Anda.",
     items: [
       {
         id: 1,
@@ -685,71 +686,118 @@ export const siteConfig = {
   },
   quoteSection: {
     quote:
-      "Kedjora has transformed our daily operations. Tasks that once consumed hours now complete in moments, freeing our team to focus on creativity and strategic growth.",
+      "Kedjora tidak hanya membantu membangun website bisnis kami, tapi juga memberikan solusi bot WhatsApp yang sangat membantu customer service. Hasilnya luar biasa dan pelayanannya sangat profesional!",
     author: {
-      name: "Alex Johnson",
-      role: "CTO, Innovatech",
-      image: "https://randomuser.me/api/portraits/men/91.jpg",
+      name: "Ibu Sinta Maharani",
+      role: "Owner, Toko Batik Nusantara",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
     },
   },
+  portfolioSection: {
+    title: "Portfolio & Case Studies",
+    description: "Lihat hasil karya terbaik kami dan bagaimana kami membantu klien mencapai tujuan mereka",
+    items: [
+      {
+        id: 1,
+        title: "E-commerce Toko Elektronik",
+        category: "Website Development",
+        description: "Website e-commerce lengkap dengan sistem pembayaran, inventory management, dan admin dashboard",
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&auto=format&fit=crop&q=60",
+        technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+        results: "300% peningkatan penjualan online dalam 3 bulan",
+      },
+      {
+        id: 2,
+        title: "Aplikasi Learning Management",
+        category: "Mobile App",
+        description: "Aplikasi mobile untuk platform pembelajaran online dengan fitur video streaming dan quiz interaktif",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60",
+        technologies: ["React Native", "Firebase", "Node.js"],
+        results: "200% peningkatan user engagement",
+      },
+      {
+        id: 3,
+        title: "Bot Customer Service",
+        category: "Bot Automation",
+        description: "WhatsApp bot untuk customer service otomatis dengan AI integration dan multi-language support",
+        image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&auto=format&fit=crop&q=60",
+        technologies: ["Node.js", "WhatsApp API", "OpenAI", "MongoDB"],
+        results: "80% pengurangan response time customer service",
+      },
+      {
+        id: 4,
+        title: "Penelitian Machine Learning",
+        category: "Academic Services",
+        description: "Skripsi tentang implementasi machine learning untuk prediksi harga saham dengan akurasi tinggi",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&auto=format&fit=crop&q=60",
+        technologies: ["Python", "TensorFlow", "Pandas", "Jupyter"],
+        results: "Lulus dengan nilai A dan publikasi jurnal",
+      },
+    ],
+  },
   pricing: {
-    title: "Pricing that scales with you",
+    title: "Paket Harga yang Fleksibel",
     description:
-      "Whichever plan you pick, it's free until you love your docs. That's our promise.",
+      "Pilih paket yang sesuai kebutuhan dan budget Anda. Konsultasi gratis untuk semua paket!",
     pricingItems: [
       {
-        name: "Free",
-        href: "#",
-        price: "$0",
-        period: "month",
-        yearlyPrice: "$0",
+        name: "Basic",
+        href: "https://wa.me/6281234567890",
+        price: "Rp 500K",
+        period: "project",
+        yearlyPrice: "Rp 5jt",
         features: [
-          "Custom domain",
-          "SEO-optimizations",
-          "Auto-generated API docs",
-          "Built-in components library",
+          "Landing page sederhana (5 halaman)",
+          "Bot WhatsApp basic",
+          "Desain grafis (logo + banner)",
+          "Konsultasi tugas kuliah",
+          "Domain & hosting 1 tahun",
+          "Responsive design",
         ],
-        description: "Perfect for individual users",
-        buttonText: "Start Free",
-        buttonColor: "bg-accent text-primary",
+        description: "Cocok untuk UMKM dan mahasiswa",
+        buttonText: "Pilih Basic",
+        buttonColor: "bg-accent text-primary border border-border",
         isPopular: false,
       },
       {
-        name: "Startup",
-        href: "#",
-        price: "$12",
-        period: "month",
-        yearlyPrice: "$120",
+        name: "Professional",
+        href: "https://wa.me/6281234567890",
+        price: "Rp 2jt",
+        period: "project",
+        yearlyPrice: "Rp 20jt",
         features: [
-          "Custom domain",
-          "SEO-optimizations",
-          "Auto-generated API docs",
-          "Built-in components library",
+          "Website full-featured (10+ halaman)",
+          "Mobile app sederhana (Android/iOS)",
+          "Bot automation advanced",
+          "Jasa sempro/skripsi",
           "E-commerce integration",
-          "User authentication system",
-          "Multi-language support",
-          "Real-time collaboration tools",
+          "Admin panel & dashboard",
+          "SEO optimization",
+          "Maintenance 6 bulan",
         ],
-        description: "Ideal for professionals and small teams",
-        buttonText: "Upgrade to Pro",
-        buttonColor: "bg-secondary text-white",
+        description: "Ideal untuk bisnis dan mahasiswa tingkat akhir",
+        buttonText: "Pilih Professional",
+        buttonColor: "bg-secondary text-white border border-white/[0.12]",
         isPopular: true,
       },
       {
         name: "Enterprise",
-        href: "#",
-        price: "$24",
-        period: "month",
-        yearlyPrice: "$240",
+        href: "https://wa.me/6281234567890",
+        price: "Custom",
+        period: "project",
+        yearlyPrice: "Custom",
         features: [
-          "Custom domain",
-          "SEO-optimizations",
-          "Auto-generated API docs",
-          "Built-in components librarys",
-          "Real-time collaboration tools",
+          "Full-stack development kompleks",
+          "Mobile app advanced (native)",
+          "Enterprise bot solutions",
+          "Academic research support",
+          "Custom integrations",
+          "Dedicated project manager",
+          "Priority support 24/7",
+          "Maintenance & updates 1 tahun",
         ],
-        description: "Best for large teams and enterprise-level organizations",
-        buttonText: "Contact Sales",
+        description: "Solusi lengkap untuk perusahaan dan institusi",
+        buttonText: "Hubungi Kami",
         buttonColor: "bg-primary text-primary-foreground",
         isPopular: false,
       },
@@ -758,91 +806,85 @@ export const siteConfig = {
   testimonials: [
     {
       id: "1",
-      name: "Alex Rivera",
-      role: "CTO at InnovateTech",
+      name: "Budi Santoso",
+      role: "Owner Toko Elektronik Maju",
       img: "https://randomuser.me/api/portraits/men/91.jpg",
       description: (
         <p>
-          The AI-driven analytics from #QuantumInsights have revolutionized our
-          product development cycle.
+          Website e-commerce dari Kedjora sangat membantu bisnis saya.
           <Highlight>
-            Insights are now more accurate and faster than ever.
+            Penjualan online meningkat 300% dalam 3 bulan!
           </Highlight>{" "}
-          A game-changer for tech companies.
+          Tim yang profesional dan hasil memuaskan.
         </p>
       ),
     },
     {
       id: "2",
-      name: "Samantha Lee",
-      role: "Marketing Director at NextGen Solutions",
+      name: "Sari Dewi",
+      role: "Mahasiswa Teknik Informatika",
       img: "https://randomuser.me/api/portraits/women/12.jpg",
       description: (
         <p>
-          Implementing #AIStream&apos;s customer prediction model has
-          drastically improved our targeting strategy.
-          <Highlight>Seeing a 50% increase in conversion rates!</Highlight>{" "}
-          Highly recommend their solutions.
+          Terima kasih Kedjora sudah membantu skripsi saya tentang machine learning.
+          <Highlight>Lulus dengan nilai A dan tepat waktu!</Highlight>{" "}
+          Sangat recommended untuk teman-teman mahasiswa.
         </p>
       ),
     },
     {
       id: "3",
-      name: "Raj Patel",
-      role: "Founder & CEO at StartUp Grid",
+      name: "Ahmad Rizki",
+      role: "Founder Startup EduTech",
       img: "https://randomuser.me/api/portraits/men/45.jpg",
       description: (
         <p>
-          As a startup, we need to move fast and stay ahead. #CodeAI&apos;s
-          automated coding assistant helps us do just that.
-          <Highlight>Our development speed has doubled.</Highlight> Essential
-          tool for any startup.
+          Aplikasi mobile learning dari Kedjora sangat user-friendly dan powerful.
+          <Highlight>User engagement meningkat 200% setelah launch!</Highlight>
+          Tim yang responsif dan hasil beyond expectation.
         </p>
       ),
     },
     {
       id: "4",
-      name: "Emily Chen",
-      role: "Product Manager at Digital Wave",
+      name: "Dinda Pratiwi",
+      role: "Mahasiswa Manajemen",
       img: "https://randomuser.me/api/portraits/women/83.jpg",
       description: (
         <p>
-          #VoiceGen&apos;s AI-driven voice synthesis has made creating global
-          products a breeze.
-          <Highlight>Localization is now seamless and efficient.</Highlight> A
-          must-have for global product teams.
+          Kedjora membantu saya menyelesaikan tugas akhir tentang sistem informasi manajemen.
+          <Highlight>Hasilnya sangat memuaskan dan sesuai standar kampus!</Highlight>
+          Terima kasih sudah membantu saya lulus tepat waktu.
         </p>
       ),
     },
     {
       id: "5",
-      name: "Michael Brown",
-      role: "Data Scientist at FinTech Innovations",
+      name: "Pak Joko Widodo",
+      role: "Direktur CV. Maju Bersama",
       img: "https://randomuser.me/api/portraits/men/1.jpg",
       description: (
         <p>
-          Leveraging #DataCrunch&apos;s AI for our financial models has given us
-          an edge in predictive accuracy.
+          Bot WhatsApp dari Kedjora sangat membantu otomatisasi customer service kami.
           <Highlight>
-            Our investment strategies are now powered by real-time data
-            analytics.
+            Response time lebih cepat dan customer satisfaction meningkat drastis.
           </Highlight>{" "}
-          Transformative for the finance industry.
+          Investasi yang sangat worth it untuk bisnis.
         </p>
       ),
     },
     {
       id: "6",
-      name: "Linda Wu",
-      role: "VP of Operations at LogiChain Solutions",
+      name: "Rina Sari",
+      role: "Owner Warung Makan Sederhana",
       img: "https://randomuser.me/api/portraits/women/5.jpg",
       description: (
         <p>
-          #LogiTech&apos;s supply chain optimization tools have drastically
-          reduced our operational costs.
+          Website dan desain logo dari Kedjora membuat warung saya terlihat lebih profesional.
           <Highlight>
-            Efficiency and accuracy in logistics have never been better.
+            Sekarang banyak customer yang order online dan omzet naik 150%!
           </Highlight>{" "}
+          Sangat puas dengan hasilnya.
         </p>
       ),
     },
@@ -958,84 +1000,90 @@ export const siteConfig = {
     },
   ],
   faqSection: {
-    title: "Frequently Asked Questions",
+    title: "Pertanyaan yang Sering Diajukan",
     description:
-      "Answers to common questions about Kedjora and its features. If you have any other questions, please don't hesitate to contact us.",
+      "Jawaban untuk pertanyaan umum tentang layanan Kedjora. Jika ada pertanyaan lain, jangan ragu untuk menghubungi kami.",
     faQitems: [
       {
         id: 1,
-        question: "What is an AI Agent?",
+        question: "Apa saja layanan yang disediakan Kedjora?",
         answer:
-          "An AI Agent is an intelligent software program that can perform tasks autonomously, learn from interactions, and make decisions to help achieve specific goals. It combines artificial intelligence and machine learning to provide personalized assistance and automation.",
+          "Kedjora menyediakan layanan lengkap: pembuatan website (landing page, e-commerce, corporate), mobile app development (Android & iOS), bot automation (WhatsApp, Telegram), jasa akademik (tugas kuliah, sempro, skripsi), dan desain grafis (logo, branding, marketing materials).",
       },
       {
         id: 2,
-        question: "How does Kedjora work?",
+        question: "Berapa lama pengerjaan website atau aplikasi?",
         answer:
-          "Kedjora works by analyzing your requirements, leveraging advanced AI algorithms to understand context, and executing tasks based on your instructions. It can integrate with your workflow, learn from feedback, and continuously improve its performance.",
+          "Waktu pengerjaan bervariasi tergantung kompleksitas: Landing page sederhana 1-2 minggu, website full-featured 3-6 minggu, mobile app sederhana 4-8 minggu, dan aplikasi kompleks 2-4 bulan. Kami selalu memberikan timeline yang jelas di awal project.",
       },
       {
         id: 3,
-        question: "How secure is my data?",
+        question: "Apakah ada garansi untuk layanan yang diberikan?",
         answer:
-          "We implement enterprise-grade security measures including end-to-end encryption, secure data centers, and regular security audits. Your data is protected according to industry best practices and compliance standards.",
+          "Ya, kami memberikan garansi untuk semua layanan. Website dan aplikasi mendapat garansi bug-fix 3-6 bulan, jasa akademik garansi revisi hingga approved, dan desain grafis garansi revisi unlimited hingga puas.",
       },
       {
         id: 4,
-        question: "Can I integrate my existing tools?",
+        question: "Bagaimana proses pengerjaan tugas akademik?",
         answer:
-          "Yes, Kedjora is designed to be highly compatible with popular tools and platforms. We offer APIs and pre-built integrations for seamless connection with your existing workflow tools and systems.",
+          "Proses dimulai dengan konsultasi kebutuhan, analisis topik dan requirements, pembuatan outline, development/penulisan, review dan revisi, hingga final delivery. Semua dikerjakan original dengan referensi yang valid dan sesuai standar akademik.",
       },
       {
         id: 5,
-        question: "Is there a free trial available?",
+        question: "Apakah data dan informasi klien aman?",
         answer:
-          "Yes, we offer a 14-day free trial that gives you full access to all features. No credit card is required to start your trial, and you can upgrade or cancel at any time.",
+          "Keamanan data klien adalah prioritas utama kami. Kami menerapkan NDA (Non-Disclosure Agreement), enkripsi data, backup rutin, dan tidak pernah membagikan informasi klien kepada pihak ketiga. Semua project dijamin kerahasiaan dan keamanannya.",
       },
       {
         id: 6,
-        question: "How does Kedjora save me time?",
+        question: "Bagaimana sistem pembayaran dan harga?",
         answer:
-          "Kedjora automates repetitive tasks, streamlines workflows, and provides quick solutions to common challenges. This automation and efficiency can save hours of manual work, allowing you to focus on more strategic activities.",
+          "Kami menerima pembayaran via transfer bank, e-wallet (OVO, DANA, GoPay), dan cryptocurrency. Sistem pembayaran fleksibel: DP 50% untuk memulai project, pelunasan setelah project selesai. Harga transparan tanpa biaya tersembunyi.",
+      },
+      {
+        id: 7,
+        question: "Apakah bisa konsultasi gratis dulu?",
+        answer:
+          "Tentu saja! Kami menyediakan konsultasi gratis untuk semua calon klien. Anda bisa diskusi kebutuhan, mendapat estimasi harga, dan timeline project tanpa biaya. Hubungi kami via WhatsApp untuk konsultasi gratis.",
       },
     ],
   },
   ctaSection: {
     id: "cta",
-    title: "Automate. Simplify. Thrive",
+    title: "Wujudkan Impian Digital Anda",
     backgroundImage: "/agent-cta-background.png",
     button: {
-      text: "Start Your 30-Day Free Trial Today",
-      href: "#",
+      text: "Konsultasi Gratis Sekarang",
+      href: "https://wa.me/6281234567890",
     },
-    subtext: "Cancel anytime, no questions asked",
+    subtext: "Gratis konsultasi, tanpa komitmen apapun",
   },
   footerLinks: [
     {
-      title: "Company",
+      title: "Layanan",
       links: [
-        { id: 1, title: "About", url: "#" },
-        { id: 2, title: "Contact", url: "#" },
-        { id: 3, title: "Blog", url: "#" },
-        { id: 4, title: "Story", url: "#" },
+        { id: 1, title: "Website Development", url: "#bento" },
+        { id: 2, title: "Mobile App", url: "#bento" },
+        { id: 3, title: "Bot Automation", url: "#bento" },
+        { id: 4, title: "Jasa Akademik", url: "#bento" },
       ],
     },
     {
-      title: "Products",
+      title: "Perusahaan",
       links: [
-        { id: 5, title: "Company", url: "#" },
-        { id: 6, title: "Product", url: "#" },
-        { id: 7, title: "Press", url: "#" },
-        { id: 8, title: "More", url: "#" },
+        { id: 5, title: "Tentang Kami", url: "#" },
+        { id: 6, title: "Portfolio", url: "#portfolio" },
+        { id: 7, title: "Testimoni", url: "#testimonials" },
+        { id: 8, title: "Blog", url: "#" },
       ],
     },
     {
-      title: "Resources",
+      title: "Kontak",
       links: [
-        { id: 9, title: "Press", url: "#" },
-        { id: 10, title: "Careers", url: "#" },
-        { id: 11, title: "Newsletters", url: "#" },
-        { id: 12, title: "More", url: "#" },
+        { id: 9, title: "WhatsApp", url: "https://wa.me/6281234567890" },
+        { id: 10, title: "Email", url: "mailto:hello@kedjora.com" },
+        { id: 11, title: "Instagram", url: "https://instagram.com/kedjora.official" },
+        { id: 12, title: "Telegram", url: "https://t.me/kedjora_support" },
       ],
     },
   ],

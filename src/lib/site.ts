@@ -1,10 +1,11 @@
 export const siteConfig = {
   name: "Kedjora",
-  url: "https://agent-magicui.vercel.app",
-  description: "Your template for building AI-powered agents with Magic UI.",
+  url: "https://kedjora.com",
+  description: "Solusi Digital Lengkap - Website, Mobile App, Bot Automation, Jasa Akademik & Desain Grafis Profesional",
   links: {
-    twitter: "https://x.com/dillionverma",
-    github: "https://github.com/dillionverma",
+    whatsapp: "https://wa.me/6281234567890",
+    instagram: "https://instagram.com/kedjora.official",
+    email: "hello@kedjora.com",
   },
 };
 
