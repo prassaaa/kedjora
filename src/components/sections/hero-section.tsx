@@ -1,5 +1,7 @@
 import { HeroVideoSection } from "@/components/sections/hero-video-section";
 import { siteConfig } from "@/lib/config";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
 
 export function HeroSection() {
@@ -24,19 +26,34 @@ export function HeroSection() {
               {hero.description}
             </p>
           </div>
-          <div className="flex items-center gap-2.5 flex-wrap justify-center">
-            <Link
-              href={hero.cta.primary.href}
-              className="bg-secondary h-9 flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-32 px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12] hover:bg-secondary/80 transition-all ease-out active:scale-95"
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="group relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 ease-out active:scale-[0.98] rounded-full px-8 h-12 text-base font-medium"
             >
-              {hero.cta.primary.text}
-            </Link>
-            <Link
-              href={hero.cta.secondary.href}
-              className="h-10 flex items-center justify-center w-32 px-5 text-sm font-normal tracking-wide text-primary rounded-full transition-all ease-out active:scale-95 bg-white dark:bg-background border border-[#E5E7EB] dark:border-[#27272A] hover:bg-white/80 dark:hover:bg-background/80"
+              <Link href={hero.cta.primary.href}>
+                <span className="relative z-10 flex items-center gap-2">
+                  {hero.cta.primary.text}
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="group relative overflow-hidden bg-background/80 backdrop-blur-sm border-2 border-border/50 hover:border-border hover:bg-background/90 text-foreground shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-[0.98] rounded-full px-8 h-12 text-base font-medium"
             >
-              {hero.cta.secondary.text}
-            </Link>
+              <Link href={hero.cta.secondary.href}>
+                <span className="relative z-10 flex items-center gap-2">
+                  <Play className="w-4 h-4 transition-transform group-hover:scale-110" />
+                  {hero.cta.secondary.text}
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
